@@ -1,17 +1,16 @@
 #include <iostream>
 #include <vector>
-#include "check_convergence.hpp"
-#include "convolution.hpp"
-#include "kernel.hpp"
-// #include <opencvopencv2/opencv.hpp>
-#include "class_image.hpp"
+#include "../include/check_convergence.hpp"
+#include "../include/convolution.hpp"
+#include "../include/kernel.hpp"
+#include "../include/class_image.hpp"
 
 
 using namespace std;
 
 
 //fonction to test the convolution 
-void test_convolution(){
+int main(){
 
     //----------load the image----------------------------------------
         img fingerprint("images/clean_finger.png");
@@ -236,7 +235,7 @@ void test_convolution(){
         convolution.save("conv_energy.png");
     }
 
-
+return 0;
 }
 
 

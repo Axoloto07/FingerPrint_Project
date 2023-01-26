@@ -3,7 +3,7 @@
 
 
 #include <unordered_map>
-#include <boost/functional/hash.hpp>
+//#include <boost/functional/hash.hpp>
 #include "class_image.hpp"
 
 

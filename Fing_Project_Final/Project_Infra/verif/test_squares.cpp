@@ -1,12 +1,19 @@
-#include <iostream>
-using namespace std;
-#include "class_image.hpp"
+#include "../include/class_image.hpp"
 
 
 //function test to draw squares on the image
 //test of the method modif_pix
-void test_squares(){
+int main(){
+
+//#######################################################################
+//GET THE INPUTS
+//####################################################################### 
+
     img picture("images/clean_finger.png");
+
+//#######################################################################
+//DRAW RECTANGLES
+//####################################################################### 
 
     //draw white rectangle
     for (int i=100; i < 130; i++ ){
@@ -23,6 +30,6 @@ void test_squares(){
 
     }
     
-    picture.save("squares.png");
-
+    picture.save("test_squares.png");
+return 0;
 }

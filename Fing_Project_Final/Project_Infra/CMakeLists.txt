@@ -16,6 +16,7 @@ add_subdirectory(alglib)
 add_subdirectory(src)
 # add_subdirectory(docs)
 add_subdirectory(demo)
+add_subdirectory(verif)
 
 
 # # Download googletest while doing the configuration
@@ -35,4 +36,4 @@ add_subdirectory(demo)
 
 # add_subdirectory(test)
 
-# enable_testing ()
+enable_testing ()

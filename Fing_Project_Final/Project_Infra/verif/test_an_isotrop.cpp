@@ -1,25 +1,24 @@
-#include <iostream>
 
-using namespace std;
+#include "../include/an_isotrop.hpp"
+#include "../include/check_convergence.hpp"
 
-#include "class_image.hpp"
-#include "check_convergence.hpp"
+//test the an/isotropic transformations of the fingerprint
 
-//test the anisotrop transformation of the fingerprint
-//the result is save in the image called : "test_anisotrop.png"
-void test_an_isotrop(){
+int main(){
+
+    cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<endl;
+
     img fingerprint("images/clean_finger.png");
-    //img fingerprint("images/warp1_finger.png");
 
 //#######################################################################
 //ISOTROPIC TRANSFORMATIONS
 //#######################################################################
 
 
-    if(1){
+    if(0){
 
         //isotropic transformation
-        img resu = fingerprint.isotrop_transf(5);
+        img resu = isotrop_transf(5, fingerprint);
         resu.save("isotropic_transf.png");
         float threshold = 0.05;
         //check convergence
@@ -31,18 +30,21 @@ void test_an_isotrop(){
 //ANISOTROPIC TRANSFORMATIONS
 //#######################################################################
 
-    if(1){
-        //anisotrop transformation
-        img resu = fingerprint.anisotrop_transf(3.14/4);
-        resu.save("anisotropic_transf.png");
+    if(0){
+        //anisotropic transformation without rotation
+        img resu = anisotrop_transf(0, fingerprint);
+        resu.save("anisotropic_transf_non_rotation.png");
         float threshold = 0.05;
         //check convergence
-        convergence("images/weak_finger.png","anisotropic_transf.png",threshold);
+        convergence("images/weak_finger.png","anisotropic_transf_non_rotation.png",threshold);
 
     }
-    if (0){
-        img resu = fingerprint.anisotrop_transf_1();
-        resu.save("essai.png");
-    }
 
+    if(0){
+        //anisotropic transformation with rotation
+        img fingerprint("images/warp1_finger.png");
+        img resu = anisotrop_transf(-0.3*3.14, fingerprint);
+        resu.save("anisotropic_transf_rotation.png");
+    }
+return 0;
 }

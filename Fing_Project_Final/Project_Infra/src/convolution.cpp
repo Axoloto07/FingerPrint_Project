@@ -1,4 +1,4 @@
-#include "../include/convolution.hpp"
+#include "convolution.hpp"
 
 
 //#######################################################################

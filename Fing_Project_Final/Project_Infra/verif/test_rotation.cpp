@@ -1,4 +1,4 @@
-#include "class_image.hpp"
+#include "../include/class_image.hpp"
 
 void test_rotation(){
     img rotation("images/strong_finger.png");
