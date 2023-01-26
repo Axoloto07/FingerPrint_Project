@@ -1,4 +1,4 @@
-#include "convolution.hpp"
+#include "../include/convolution.hpp"
 
 
 //#######################################################################
@@ -142,8 +142,10 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
     //we suppose the filter is of odd dimensions
 
     //we add zeros to the matrix m1 to adapt to the filter
-    Mat tmp = padd_center(m1, kernel_i, kernel_j);
-
+    //Mat tmp = padd_center(m1, kernel_i, kernel_j);
+    //we replicate the image for the border
+    Mat tmp;
+    copyMakeBorder(m1,tmp,kernel_i/2,kernel_i/2, kernel_j/2,kernel_j/2, BORDER_REPLICATE);
     Mat result = Mat::zeros(m1.rows, m1.cols, m1.type());
     Mat kernel;
     //COUT : n^2

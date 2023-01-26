@@ -1,6 +1,4 @@
 #include "../include/morphological.hpp"
-//#include "class_image.hpp"
-
 
 
 //#######################################################################
