@@ -49,6 +49,75 @@ float find_min_x(img i1, img i2, float b1, float b2, float min, float pmin){
     }
 }
 
+float find_min_xy(img i1, img i2, float bi1, float bi2, float bj1, float bj2, float min, float pmini, float pminj){
+    for (float j=bj1; j<bj2; j+=(bj2-bj1)/1000) {
+        for (float i=bi1; i<bi2; i+=(bi2-bi1)/1000){
+            float y = loss_function(i1, i2, j, i);
+            //cout << "y = " << y << endl;
+            if (y<min){
+                min = y;
+                pminj = j;
+                pmini = i;
+            }
+        }
+    }
+    if (bi2-bi1>1 || bj2-bj1>1){
+        float bi1_ = pmini - (bi2-bi1)/4;
+        float bi2_ = pmini + (bi2-bi1)/4;
+        float bj1_ = pminj - (bj2-bj1)/4;
+        float bj2_ = pminj + (bj2-bj1)/4;
+        cout << "min = " << min << endl;
+        cout << "pmini = " << pmini << endl;
+        cout << "pminj = " << pminj << endl;
+        min = find_min_xy(i1, i2, bi1_, bi2_, bj1_, bj2_, min, pmini, pminj);
+    }
+    else{
+        cout << "min_final = " << min << endl;
+        cout << "pmini_final = " << pmini << endl;
+        cout << "pminj_final = " << pminj << endl;
+        return min;
+    }
+    return min;
+}
+
+
+float find_min_xytheta(img i1, img i2, float bi1, float bi2, float bj1, float bj2, float bt1, float bt2, float min, float pmini, float pminj, float ptheta){
+    for (float j=bj1; j<bj2; j+=(bj2-bj1)/1000) {
+        for (float i=bi1; i<bi2; i+=(bi2-bi1)/1000){
+            for (float theta=bt1; theta<bt2; theta+=(bt2-bt1)/10){
+                float y = loss_function(i1, i2, j, i, theta);
+                cout << "y = " << y << endl;
+                if (y<min){
+                    min = y;
+                    pminj = j;
+                    pmini = i;
+                    ptheta = theta;
+                }
+            }
+        }
+    }
+    if (bi2-bi1>1 || bj2-bj1>1){
+        float bi1_ = pmini - (bi2-bi1)/4;
+        float bi2_ = pmini + (bi2-bi1)/4;
+        float bj1_ = pminj - (bj2-bj1)/4;
+        float bj2_ = pminj + (bj2-bj1)/4;
+        float bt1_ = ptheta - (bt2-bt1)/4;
+        float bt2_ = ptheta + (bt2-bt1)/4;
+        cout << "min = " << min << endl;
+        cout << "pmini = " << pmini << endl;
+        cout << "pminj = " << pminj << endl;
+        cout << "ptheta = " << ptheta << endl;
+        min = find_min_xy(i1, i2, bi1_, bi2_, bj1_, bj2_, min, pmini, pminj);
+    }
+    else{
+        cout << "min_final = " << min << endl;
+        cout << "pmini_final = " << pmini << endl;
+        cout << "pminj_final = " << pminj << endl;
+        return min;
+    }
+    return min;
+}
+
 float loss_function_opt(img i1, img i2, float tx, float ty, float theta){
 // loss function for the image registration (can be seen as a covariance)
     img t_image = i1.translation(tx, ty);
