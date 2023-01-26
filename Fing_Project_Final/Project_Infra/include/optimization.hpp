@@ -19,7 +19,53 @@
 double loss_function(img i1, img i2, float tx=0, float ty=0, float theta=0);
 
 
-float find_min_x(img i1, img i2, float b1 = -200, float b2 = 200, float min = INFINITY, float pmin = 0);
+/**
+ * @brief find the minimum of the loss function with respect to the translation in x and y
+ * 
+ * @param img
+ * @param img
+ * @param b1 border 1 of the initial interval of the search
+ * @param b2 border 2 of the initial interval of the search
+ * @param min minimuim value which changed during the search
+ * @param pmini value which correspond to the minimum in y
+ * @return float minimum of the loss function
+ */
+float find_min_x(img i1, img i2, float b1 = -200, float b2 = 200, float min = INFINITY, float pmini = 0);
+
+/**
+ * @brief find the minimum of the loss function with respect to the translation in x
+ * 
+ * @param img
+ * @param img
+ * @param bi1 border 1 of the initial interval of the search according to y
+ * @param bi2 border 2 of the initial interval of the search according to y
+ * @param bj1 border 1 of the initial interval of the search according to x
+ * @param bj2 border 2 of the initial interval of the search according to x
+ * @param min minimuim value which changed during the search
+ * @param pmini value which correspond to the minimum in y
+ * @param pminj value which correspond to the minimum in x
+ * @return float mnimum of the loss function
+ */
+float find_min_xy(img i1, img i2, float b1 = -200, float b2 = 200, float bj1 = -200, float bj2 = 200, float min = INFINITY, float pmin = 0, float pminj = 0);
+
+/**
+ * @brief find the minimum of the loss function with respect to the translation in x and y and the rotation
+ * 
+ * @param img
+ * @param img
+ * @param bi1 border 1 of the initial interval of the search according to y
+ * @param bi2 border 2 of the initial interval of the search according to y
+ * @param bj1 border 1 of the initial interval of the search according to x
+ * @param bj2 border 2 of the initial interval of the search according to x
+ * @param bt1 border 1 of the initial interval of the search according to theta
+ * @param bt2 border 2 of the initial interval of the search according to theta
+ * @param min minimuim value which changed during the search
+ * @param pmini value which correspond to the minimum in y
+ * @param pminj value which correspond to the minimum in x
+ * @param ptheta value which correspond to the minimum in theta
+ * @return float 
+ */
+float find_min_xytheta(img i1, img i2, float bi1 = -200, float bi2 = 200, float bj1 = -200, float bj2 = 200, float bt1 = 0, float bt2 = 2*M_PI, float min = INFINITY, float pmini = 0, float pminj = 0, float ptheta = 0);
 
 
 /**
