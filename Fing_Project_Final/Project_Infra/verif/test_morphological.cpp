@@ -11,7 +11,7 @@ int main(){
 //GET THE INPUTS
 //#######################################################################  
 
-    img fingerprint("images/clean_finger.png");
+    img fingerprint("../Project_Infra/images/clean_finger.png");
     img tmp = fingerprint.cast_to_float();
     Mat m1 = tmp.get_matrix();
     vector<int> center = fingerprint.coord_center();
@@ -32,7 +32,7 @@ int main(){
 //DILATION WITH BINARY IMAGE
 //#######################################################################
 
-    if (0){
+    if (1){
         elt_structure = elt_struct_cross_col_row(3,3, "cross");
         result = erosion_dilatation(elt_structure, bin,"dil_bin");
         convert_negative(result);
@@ -44,7 +44,7 @@ int main(){
 //DILATION WITH GRAY SCALE IMAGE
 //#######################################################################
 
-    if (0){
+    if (1){
         elt_structure = elt_struct_cross_col_row(3,3, "col");
         result = erosion_dilatation(elt_structure, m1,"dil_gray");
         test = img(result);
@@ -55,7 +55,7 @@ int main(){
 //EROSION WITH BINARY IMAGE
 //#######################################################################
 
-    if (0){
+    if (1){
         elt_structure = elt_struct_disc(5,5);
         result = erosion_dilatation(elt_structure, bin,"ero_bin");
         convert_negative(result);
@@ -67,7 +67,7 @@ int main(){
 //EROSION WITH GRAY SCALE IMAGE
 //#######################################################################
 
-    if (0){
+    if (1){
         elt_structure = elt_struct_diamond(5,5);
         result = erosion_dilatation(elt_structure, m1,"ero_gray");
         test = img(result);
@@ -78,7 +78,7 @@ int main(){
 //EROSION/DILATION VS DILATION/EROSION
 //#######################################################################
 
-    if (0){
+    if (1){
         elt_structure = elt_struct_square(3,3);
         result = erosion_dilatation(elt_structure, m1,"ero_gray");
         result = erosion_dilatation(elt_structure, result, "dil_gray");

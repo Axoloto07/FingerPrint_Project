@@ -13,7 +13,7 @@ using namespace std;
 int main(){
 
     //----------load the image----------------------------------------
-        img fingerprint("images/clean_finger.png");
+        img fingerprint("../Project_Infra/images/clean_finger.png");
         //conversion to float
         img tmp = fingerprint.cast_to_float();
         //get the matrix
@@ -52,11 +52,11 @@ int main(){
         //check convergence
         float threshold = 0.01;
         cout<<"id"<<endl<<"prof/nous"<<endl;
-        convergence("images/clean_finger.png","conv_id.png",threshold);
+        convergence("../Project_Infra/images/clean_finger.png","conv_id.png",threshold);
         cout<<"test methods"<<endl<<"prof/fft"<<endl;
-        convergence("images/clean_finger.png","conv_id_fft.png",threshold);
+        convergence("../Project_Infra/images/clean_finger.png","conv_id_fft.png",threshold);
         cout<<"prof/filter"<<endl;
-        convergence("images/clean_finger.png","conv_id_filter.png",threshold);
+        convergence("../Project_Infra/images/clean_finger.png","conv_id_filter.png",threshold);
 
     }
   
@@ -83,7 +83,7 @@ int main(){
         //check convergence
         float threshold = 0.05;
         cout<<"blur"<<endl<<"prof/nous"<<endl;
-        convergence("images/blurred_finger.png","conv_blur.png",threshold);
+        convergence("../Project_Infra/images/blurred_finger.png","conv_blur.png",threshold);
         cout<<"test methods"<<endl<<"nous/fft"<<endl;
         convergence("conv_blur.png","conv_blur_fft.png",threshold);
         cout<<"filter/nous"<<endl;
@@ -123,7 +123,7 @@ int main(){
         //check convergence
         float threshold = 0.05;
         cout<<"pull"<<endl<<"prof/nous"<<endl;
-        convergence("images/blurred_finger.png","conv_pull.png",threshold);
+        convergence("../Project_Infra/images/blurred_finger.png","conv_pull.png",threshold);
         cout<<"test methods"<<endl<<"filter/fft"<<endl;
         convergence("conv_pull_filter.png","conv_pull_fft.png",threshold);
         cout<<"filter/nous"<<endl;
@@ -159,7 +159,7 @@ int main(){
         //check convergence
         float threshold = 0.05;
         cout<<"gauss"<<endl<<"prof/nous"<<endl;
-        convergence("images/blurred_finger.png","conv_pull.png",threshold);
+        convergence("../Project_Infra/images/blurred_finger.png","conv_pull.png",threshold);
         cout<<"test methods"<<endl<<"nous/filter"<<endl;
         convergence("conv_gauss.png","conv_gauss_filter.png",threshold);
         cout<<"fft/filter"<<endl;
@@ -191,7 +191,7 @@ int main(){
         //check convergence
         float threshold = 0.05;
         cout<<"blurr nunif"<<endl<<"prof/nous"<<endl;
-        convergence("images/blurred_finger.png","conv_blur_nunif.png",threshold);
+        convergence("../Project_Infra/images/blurred_finger.png","conv_blur_nunif.png",threshold);
         
     }
 
@@ -219,7 +219,7 @@ int main(){
         //check convergence
         float threshold = 0.05;
         cout<<"blurr nunif"<<endl<<"prof/nous"<<endl;
-        convergence("images/blurred_finger.png","conv_blur_nunif_norm.png",threshold);
+        convergence("../Project_Infra/images/blurred_finger.png","conv_blur_nunif_norm.png",threshold);
         
     }
 

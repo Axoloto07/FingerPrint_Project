@@ -8,7 +8,7 @@ int main(){
 
     cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<endl;
 
-    img fingerprint("images/clean_finger.png");
+    img fingerprint("../Project_Infra/images/clean_finger.png");
 
 //#######################################################################
 //ISOTROPIC TRANSFORMATIONS
@@ -22,7 +22,7 @@ int main(){
         resu.save("isotropic_transf.png");
         float threshold = 0.05;
         //check convergence
-        convergence("images/weak_finger.png","isotropic_transf.png",threshold);
+        convergence("../Project_Infra/images/weak_finger.png","isotropic_transf.png",threshold);
 
     }
 
@@ -30,19 +30,19 @@ int main(){
 //ANISOTROPIC TRANSFORMATIONS
 //#######################################################################
 
-    if(0){
+    if(1){
         //anisotropic transformation without rotation
         img resu = anisotrop_transf(0, fingerprint);
         resu.save("anisotropic_transf_non_rotation.png");
         float threshold = 0.05;
         //check convergence
-        convergence("images/weak_finger.png","anisotropic_transf_non_rotation.png",threshold);
+        convergence("../Project_Infra/images/weak_finger.png","anisotropic_transf_non_rotation.png",threshold);
 
     }
 
-    if(0){
+    if(1){
         //anisotropic transformation with rotation
-        img fingerprint("images/warp1_finger.png");
+        img fingerprint("../Project_Infra/images/warp1_finger.png");
         img resu = anisotrop_transf(-0.3*3.14, fingerprint);
         resu.save("anisotropic_transf_rotation.png");
     }

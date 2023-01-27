@@ -9,7 +9,7 @@ int main(){
 //GET THE INPUTS
 //####################################################################### 
 
-    img picture("images/clean_finger.png");
+    img picture("../Project_Infra/images/clean_finger.png");
 
 //#######################################################################
 //DRAW RECTANGLES

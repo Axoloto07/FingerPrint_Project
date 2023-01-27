@@ -86,8 +86,17 @@ img anisotrop_transf(float alpha, img input){
     //alpha is the angle between the x-axis and the direction of the pressure that the user enters
     Mat matrix = input.get_matrix();
     img res = img(Mat(matrix.rows, matrix.cols, matrix.type())); 
-    //compute the center of the finger
-    vector<int> center = input.coord_center();
+    vector<int> center;
+    //if the image is rotated (we consider it is warp1_finger)
+    //compute the center of pressure of the image
+    if (alpha !=0){
+        center = {(int)(3.0/4*matrix.rows),(int)(0.7*matrix.cols)};
+
+    }
+    else{
+        center = input.coord_center();
+
+    }
     //compute the new center after a rotation of angle alpha
     vector<int> center_rot = {(int)(-sin(alpha) * center[1] + cos(alpha) * center[0]),(int)(cos(alpha) * center[1] + sin(alpha) * center[0])};
     //axis lenght of the ellipse
