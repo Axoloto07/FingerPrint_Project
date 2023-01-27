@@ -2,16 +2,18 @@
 #include "../include/deconvolution.hpp"
 #include "../include/check_convergence.hpp"
 
+//function to obtain the corrupted_finger by matrix multiplication and recover the clean_finger 
 int main(){
 
 //#######################################################################
 //GET THE INPUTS
 //#######################################################################  
 
-    //get the input image
+
     img fingerprint("../Project_Infra/images/clean_blur_ex.png");
     img tmp = fingerprint.cast_to_float();
     Mat input_dense = tmp.get_matrix();
+
     //choose the option to run
     bool corr;
     cout<<"Do you want the corrupted version? (enter 1 for yes, 0 for no)"<<endl;
@@ -54,8 +56,9 @@ int main(){
 //#######################################################################
 
     if(corr){
+        //create the corrupted image
         Mat result = blurr(doubly_block, input_dense, kernel);
-
+        //cut the image to have the good dimensions
         Mat result_1 = cut(result, 3,1,4);
 
         //Please decomment to adjust the colors of the image
@@ -65,19 +68,23 @@ int main(){
         //     }
         // }
 
+        //save the result in a new image
         img picture = img(result);
         picture.save("demo_results/corrupted.png");
         picture = img(result_1);
         picture.save("demo_results/corrupted_cut.png");
 
+        //check convergence
         convergence("demo_results/corrupted_cut.png","../Project_Infra/images/corrupted_blur_ex.png", 0.05);
         mean_squared_error("demo_results/corrupted_cut.png","../Project_Infra/images/corrupted_blur_ex.png");
     
     }
-
-    //----------------check with convolution algorithm--------------------
+//#######################################################################
+//CHECK WITH THE CONVOLUTION ALGORITHM
+//#######################################################################
 
     if(check){
+        //construction of the kernel
         Mat kernel_1= Mat::zeros(5,5,CV_32F);
         for (int i=0; i<kernel_1.rows; i++){
             kernel_1.at<float>(i,kernel_1.rows-1-i) = 1.0/7;
@@ -85,11 +92,14 @@ int main(){
         kernel_1.at<float>(3,2) = 1.0/7;
         kernel_1.at<float>(4,2) = 1.0/7;
 
+        //do the convolution with the algorithm of Opencv
         Mat result_2 = conv_using_filter(input_dense, kernel_1, 'z');
 
         //save the result in a new image
         img verif = img(result_2);
         verif.save("demo_results/corrupted_verif.png");
+
+        //check convergence
         convergence("demo_results/corrupted_verif.png", "demo_results/corrupted.png", 0.05);
         mean_squared_error("demo_results/corrupted_verif.png", "demo_results/corrupted.png");
     }
@@ -107,20 +117,17 @@ int main(){
 
         Mat padded = Mat::zeros(output.rows+4,output.cols+4,output.type());
 
-        //zero padd the borders to reach the size of clean finger
+        //zero pad the borders to reach the size of clean finger
         copyMakeBorder(output,padded,3,1,2,2, BORDER_CONSTANT, 0);
 
-        //replicate the border to reach the size of clean_finger
-        //copyMakeBorder(output,padded,3,1,2,2, BORDER_REPLICATE);
-        
-        //mirror the borders to reach the size of clean finger
-        //copyMakeBorder(output,padded,3,1,2,2, BORDER_REFLECT);
-
-        //--------------------------------------------
-
+        //solve the system with the least squares method
         Mat result = least_squares_result(doubly_block,0.5,padded);
+
+        //save the result in a new image
         img picture = img(result);
         picture.save("demo_results/clean.png");
+        
+        //check convergence
         convergence("../Project_Infra/images/clean_blur_ex.png", "demo_results/clean.png", 0.05);
         mean_squared_error("../Project_Infra/images/clean_blur_ex.png", "demo_results/clean.png");
     }

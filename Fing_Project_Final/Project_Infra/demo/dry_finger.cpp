@@ -4,19 +4,21 @@
 #include "../include/check_convergence.hpp"
 
 
-//fonction to create the moist finger
+//fonction to create the dry finger
 int main(){
 
-//------------get the input--------------------------------------
-    //get the input image
+//#######################################################################
+//GET THE INPUTS
+//####################################################################### 
+
     cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<endl;
     string path;
     cin>>path;
     img fingerprint("../Project_Infra/images/" + path);
     img tmp = fingerprint.cast_to_float();
     Mat m1 = tmp.get_matrix();
-    vector<int> center = fingerprint.coord_center();
 
+    vector<int> center = fingerprint.coord_center();
 
     //choose the option to run
     bool bin;
@@ -26,22 +28,18 @@ int main(){
     cout<<"Do you want the grayscale version? (enter 1 for yes, 0 for no)"<<endl;
     cin>>gray;
 
-
-//---------------------------------------------------------------
-
-//---------Creation of the structural element--------------------
-    //Mat elt_structure = elt_struct_cross_col_row(3,3, "cross");
-//---------------------------------------------------------------
-
-//------------erosion nunif with binary image--------------
+//#######################################################################
+//NON UNIFORM EROSION WITH BINARY IMAGES
+//####################################################################### 
 
     if(bin){
-        //binarisation of the clean finger
+
+        //binarization of the clean finger
         vector<float> proba = proba_distr(m1);
         float threshold = find_threshold(proba);
         Mat binary = binarization(m1,threshold);
 
-        //binarisation of the moist finger
+        //binarization of the dry finger
         img fingerprint("../Project_Infra/images/dry_finger.png");
         img tmp = fingerprint.cast_to_float();
         Mat m2 = tmp.get_matrix();
@@ -49,41 +47,42 @@ int main(){
         threshold = find_threshold(proba);
         Mat binary_dry = binarization(m2,threshold);
         convert_negative(binary_dry);
+        //save the image
         img verif = img(binary_dry);
         verif.save("demo_results/dry_binary.png");
 
-        //apply the dilation
-        //Mat result_ero_1 = erosion_dilatation(elt_structure, binary, "ero_bin");
-        // Mat result_ero = erosion_nunif(5,5,result_ero_1, 1.1*m1.cols/2, m1.cols, "bin");
-        Mat result_ero = erosion_nunif(5,5,binary, m1.cols/2, m1.cols, center,0.1*m1.rows,  "gray");
+        //apply the non uniform erosion to the binarized 'clean_finger'
+        Mat result_ero = erosion_nunif_bin(5,5,binary, 0.45*m1.cols, 3.0/4*m1.cols, center,0.1*m1.rows);
         convert_negative(result_ero);
+
+        //save the result in a new image
         img test = img(result_ero);
         test.save("demo_results/dry_finger_bin.png");
 
-        //convergence
+        //compare binarized 'dry_finger' with binarized eroded output
         convergence("demo_results/dry_binary.png","demo_results/dry_finger_bin.png",0.05);
         mean_squared_error("demo_results/dry_binary.png","demo_results/dry_finger_bin.png");
 
 
     }
-//---------------------------------------------------------------
 
-//------------erosion nunif with grayscale image--------------
-    
-    if (gray){ 
-        //Mat result_ero_1 = erosion_dilatation(elt_structure, m1, "ero_gray");
-        //Mat result_ero = erosion_nunif(5,5,result_ero_1, 1.1*m1.cols/2, m1.cols, "gray");
-        Mat result_ero = erosion_nunif(5,5,m1, m1.cols/2, m1.cols, center,0.1*m1.rows,  "gray");
+//#######################################################################
+//NON UNIFORM EROSION WITH GRAYSCALE IMAGES
+//####################################################################### 
+
+    if (gray){
+
+        //apply the non uniform erosion 
+        Mat result_ero = erosion_nunif(5,5,m1, m1.cols/2, m1.cols, center,0.1*m1.rows);
+
+        //save the result in a new image
         img test = img(result_ero);
         test.save("demo_results/dry_finger_gray.png");
 
-        //convergence
+        //compare 'dry_finger' with eroded output
         convergence("../Project_Infra/images/dry_finger.png","demo_results/dry_finger_gray.png",0.05);
         mean_squared_error("../Project_Infra/images/dry_finger.png","demo_results/dry_finger_gray.png");
         
     }
-    
-        
-//-----------------------------------------------------------------------------------
 return 0;
 }

@@ -127,15 +127,10 @@ Mat elt_struct_hole(int size_i, int size_j){
     // elt_struct.at<float>(size_i-1,1) = 1;    
     // elt_struct.at<float>(size_i-2,1) = 1;      
 
-
     elt_struct.at<float>(size_i-1,size_j-1) = 1; 
     // elt_struct.at<float>(size_i-2,size_j-1) = 1; 
     // elt_struct.at<float>(size_i-1,size_j-2) = 1; 
     // elt_struct.at<float>(size_i-2,size_j-2) = 1;      
-
-
-
-
     return elt_struct;
 
 }

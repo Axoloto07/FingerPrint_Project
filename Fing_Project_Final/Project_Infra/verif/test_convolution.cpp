@@ -16,6 +16,7 @@ int main(){
 //#######################################################################
 //GET THE INPUTS
 //####################################################################### 
+
     //----------load the image----------------------------------------
         img fingerprint("../Project_Infra/images/clean_finger.png");
         //conversion to float
@@ -42,11 +43,10 @@ int main(){
         Mat result_filter = conv_using_filter(m1, kernel, 'z');
 
 
-        //save the result in a new image
+        //save the result in new images
         img convolution = img(result);
         img convolution_fft = img(result_fft);
         img convolution_filter = img(result_filter);
-
 
         convolution.save("verif_results/conv_id.png");
         convolution_fft.save("verif_results/conv_id_fft.png");
@@ -74,7 +74,7 @@ int main(){
         Mat result_fft = conv_using_fft(m1, kernel);
         Mat result_filter = conv_using_filter(m1, kernel, 'z');
 
-        //save the result in a new image
+        //save the result in new images
         img convolution = img(result);
         img convolution_fft = img(result_fft);
         img convolution_filter = img(result_filter);
@@ -110,7 +110,7 @@ int main(){
 
 
 
-        //save the result in a new image
+        //save the result in new images
         img convolution = img(result);
         img convolution_fft = img(result_fft);
         img convolution_filter = img(result_filter);
@@ -118,8 +118,6 @@ int main(){
         convolution.save("verif_results/conv_pull.png");
         convolution_fft.save("verif_results/conv_pull_fft.png");
         convolution_filter.save("verif_results/conv_pull_filter.png");
-
-
 
         //check convergence
         float threshold = 0.05;
@@ -146,7 +144,7 @@ int main(){
         Mat result_filter = conv_using_filter(m1, kernel_1, 'z');
 
 
-        //save the result in a new image
+        //save the result in new images
         img convolution = img(result);
         img convolution_fft = img(result_fft);
         img convolution_filter = img(result_filter);
@@ -173,10 +171,12 @@ int main(){
 
     if(1){  
         b = (float) 0.37*m1.cols;
-        //Mat result = conv_x_y(m1, 15, 3, center, b, 2.0*b/3);
+
+        //pull filter depending on the pixel's location on the top of the finger 
         Mat result = conv_x_y(m1, 15, 3, center, b, 3.0*b/4, 't', 'a');
+        //box blurr filter depending on the pixel's location on the bottom of the finger 
         Mat result_1 = conv_x_y(result, 5,5,{m1.rows/2, m1.cols/2},120,120, 'b', 'a');
-        //Mat result_2 = convol_energy(result_1, 3,3,center);
+        //Gaussian uniform blurr on the whole finger
         Mat kernel = kernel_gaussian(1,1,3,3);
         Mat result_2 = discrete_conv(result_1, kernel, 'r');
 
@@ -201,14 +201,16 @@ int main(){
     if(1){  
         a = (float) (1*m1.rows)/8;
         b = (float) (8*m1.cols)/32;
-        //Mat result = conv_x_y(m1, 15, 3, center, b, 2.0*b/3);
-        Mat result = convol_energy(m1, 3,3,center);
 
+        //apply a kernel with decreasing energy to have a lightened image
+        Mat result = convol_energy(m1, 3,3,center);
+        //pull filter depending on the pixel's location on the top of the finger 
         Mat result_1 = conv_x_y(result, 15, 3, center, b, 3.0*b/4, 't', 'n');
+        //box blurr filter depending on the pixel's location on the bottom of the finger 
         Mat result_2 = conv_x_y(result_1, 5,5,{m1.rows/2, m1.cols/2},120,120, 'b', 'n');
+        //Gaussian uniform blurr on the whole finger
         Mat kernel = kernel_gaussian(1,1,3,3);
         Mat result_3 = discrete_conv(result_2, kernel, 'r');
-
 
         //save the result in a new image
         img convolution = img(result_3);
@@ -228,7 +230,9 @@ int main(){
 //#######################################################################
 
     if(1){
+        //apply a decreasing energy kernel
         Mat result = convol_energy(m1, 3,3,center); 
+        
         //save the result in a new image
         img convolution = img(result);
         convolution.save("verif_results/conv_energy.png");

@@ -15,7 +15,7 @@ int main(){
 //DRAW RECTANGLES
 //####################################################################### 
 
-    //draw white rectangle
+    //draw a white rectangle
     for (int i=100; i < 130; i++ ){
         for (int j=80; j<140; j++){
             picture.modif_pix(i,j,255);

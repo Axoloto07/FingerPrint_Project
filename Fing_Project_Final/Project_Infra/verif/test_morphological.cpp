@@ -27,15 +27,17 @@ int main(){
     float threshold = find_threshold(proba);
     Mat bin = binarization(m1,threshold);
 
-
 //#######################################################################
 //DILATION WITH BINARY IMAGE
 //#######################################################################
 
     if (1){
+        //uniform dilation with a cross motif
         elt_structure = elt_struct_cross_col_row(3,3, "cross");
         result = erosion_dilatation(elt_structure, bin,"dil_bin");
         convert_negative(result);
+
+        //save the result in a new image
         test = img(result);
         test.save("verif_results/dilation_bin_cross.png");
     }
@@ -45,8 +47,11 @@ int main(){
 //#######################################################################
 
     if (1){
+        //uniform dilation with a motif 'column'
         elt_structure = elt_struct_cross_col_row(3,3, "col");
         result = erosion_dilatation(elt_structure, m1,"dil_gray");
+
+        //save the result in a new image
         test = img(result);
         test.save("verif_results/dilation_gray_col.png");
     }
@@ -56,9 +61,12 @@ int main(){
 //#######################################################################
 
     if (1){
+        //uniform dilation with a disc motif
         elt_structure = elt_struct_disc(5,5);
         result = erosion_dilatation(elt_structure, bin,"ero_bin");
         convert_negative(result);
+
+        //save the result in a new image
         test = img(result);
         test.save("verif_results/erosion_bin_disc.png");
     }
@@ -68,8 +76,11 @@ int main(){
 //#######################################################################
 
     if (1){
+        //uniform dilation with a diamond motif
         elt_structure = elt_struct_diamond(5,5);
         result = erosion_dilatation(elt_structure, m1,"ero_gray");
+
+        //save the result in a new image
         test = img(result);
         test.save("verif_results/erosion_gray_diamond.png");
     }
@@ -79,25 +90,23 @@ int main(){
 //#######################################################################
 
     if (1){
+        //opening with a square motif
         elt_structure = elt_struct_square(3,3);
         result = erosion_dilatation(elt_structure, m1,"ero_gray");
         result = erosion_dilatation(elt_structure, result, "dil_gray");
+
+        //save the result in a new image
         test = img(result);
         test.save("verif_results/erosion_dilation.png");
+
+        //closing with a square motif
         result = erosion_dilatation(elt_structure, m1,"dil_gray");
         result = erosion_dilatation(elt_structure, result, "ero_gray");
+
+        //save the result in a new image
         test = img(result);
         test.save("verif_results/dilation_erosion.png");
     }
-
-
-//------------current tries-----------------------------------
-    
-    // Mat result_ero = erosion_nunif(5,5,m1, m1.cols/2, m1.cols, center,0.1*m1.rows,  "gray");
-    // test = img(result_ero);
-    // test.save("ero_essai.png");
-
-//-----------------------------------------------------------------------------------
 
 return 0;
 }

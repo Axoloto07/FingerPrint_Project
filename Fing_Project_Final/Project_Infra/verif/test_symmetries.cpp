@@ -25,6 +25,7 @@ int main(){
     //symmetry wrt the diagonal y = x
     img symd2 = fingerprint.sym_diag_inv();
 
+    //save the images
     symd.save("verif_results/sym_diag.png");
     symx.save("verif_results/sym_x.png");
     symy.save("verif_results/sym_y.png");

@@ -164,12 +164,11 @@ Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float r
  * @param bin 
  * @param a 
  * @param b 
- * @param bin_gray 
  * @return Mat 
  */
-Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius, string bin_gray);
+Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius);
 
-
+Mat erosion_nunif_bin(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius);
 
 //#######################################################################
 //TOOLS

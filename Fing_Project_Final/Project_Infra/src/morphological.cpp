@@ -211,11 +211,6 @@ Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float r
     //compute the dilated version of grayscale input image given a structuring element
     //the filtering is not uniform (the kernel changes depending on the position of the pixel)
 
-    // vector<float> frequency = proba_distr(input);
-    // float threshold = find_threshold(frequency);
-    // Mat bin = binarization(input,threshold);
-    //Mat bin = input;
-
     //pad the input image with zeros, so that the filter works also for pixels at the borders
     Mat padded = Mat::zeros(bin.rows+elt_struct_i-1 , bin.cols+elt_struct_j-1 , bin.type());
     copyMakeBorder(bin,padded,elt_struct_i/2,elt_struct_i/2,elt_struct_j/2,elt_struct_j/2,BORDER_CONSTANT,255);
@@ -237,13 +232,8 @@ Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float r
                 //if the pixel is located at the middle of the finger
                 //it is applied the cross filter
                 if (pow((float)(n-(bin.rows-1))/a, 2) + pow((float) (m)/b, 2) >1 && pow((float)(n-(bin.rows-1))/a, 2) + pow((float) (m-(bin.cols-1))/b, 2) >1){
-                //pow((float)(n-(bin.rows-1))/a, 2) + pow((float) (m)/b, 2) >1 && pow((float)(n-(bin.rows-1))/a, 2) + pow((float) (m-(bin.cols-1))/b, 2) >1 &&
-                // if (pow((float)(n-center[0])/(4*a), 2) + pow((float) (m-center[1])/(0.3*b), 2) <= 1){
-                //     elt_struct = elt_struct_square(3, 3);
-                // }
-                //else{
+   
                     elt_struct = elt_struct_cross_col_row(elt_struct_i, elt_struct_j, "cross");
-                //}
                 }
                 //if the pixel is located at the bottom left of the finger
                 //it is applied the diagonal filter
@@ -263,24 +253,16 @@ Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float r
             }
             else{
                 result.at<float>(n,m) = dilatation_coeff(elt_struct,inter);
-
             }
-
         }
-
     }
     return result;
 }
 
 
-Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius, string bin_gray){
+Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius){
     //compute the dilated version of grayscale input image given a structuring element
     //the filtering is not uniform (the kernel changes depending on the position of the pixel)
-
-    // vector<float> frequency = proba_distr(input);
-    // float threshold = find_threshold(frequency);
-    // Mat bin = binarization(input,threshold);
-    //Mat bin = input;
 
     //pad the input image with zeros, so that the filter works also for pixels at the borders
     Mat padded = Mat::zeros(bin.rows+elt_struct_i-1 , bin.cols+elt_struct_j-1 , bin.type());
@@ -316,12 +298,7 @@ Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b
                     }
                 }
                 counter++;
-
             }
-            // else if( pow((float)(n-(bin.rows-1))/(a-10), 2) + pow((float)(m-(bin.cols/2))/(b-10), 2) > 1 && pow((float)(n-(bin.rows-1))/(a+10), 2) + pow((float)(m-(bin.cols/2))/(b+10), 2) <= 1 ){
-            //     //erosion to add continuity in an ring
-            //     elt_struct = elt_struct_cross_col_row(3, 3, "row");
-            // }
             else{
                 //center of the finger
                 if (pow(n-center[0], 2) + pow(m-center[1], 2) <= pow(radius, 2)){
@@ -331,21 +308,10 @@ Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b
                 else{
                     //choisir row or col
                     elt_struct = elt_struct_cross_col_row(3,3, "row");
-                    //elt_struct = elt_struct_cross_col_row(3,3, "col");
-
                 }
-
             }
-            if (bin_gray=="gray"){
-                result.at<float>(n,m) = erosion_coeff_grayscale(elt_struct,inter);
-            }
-            else{
-                result.at<float>(n,m) = erosion_coeff(elt_struct,inter);
-            }
-
+            result.at<float>(n,m) = erosion_coeff_grayscale(elt_struct,inter);
         }
-
-
     }
     elt_struct = elt_struct_cross_col_row(3,3, "cross");
     result = erosion_dilatation(elt_struct, result,"ero_gray");
@@ -353,7 +319,51 @@ Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b
     return result;
 }
 
+Mat erosion_nunif_bin(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius){
+    //compute the dilated version of grayscale input image given a structuring element
+    //the filtering is not uniform (the kernel changes depending on the position of the pixel)
 
+
+    //pad the input image with zeros, so that the filter works also for pixels at the borders
+    Mat padded = Mat::zeros(bin.rows+elt_struct_i-1 , bin.cols+elt_struct_j-1 , bin.type());
+    copyMakeBorder(bin,padded,elt_struct_i/2,elt_struct_i/2,elt_struct_j/2,elt_struct_j/2,BORDER_CONSTANT,0);
+ 
+    Mat result = Mat::zeros(bin.rows, bin.cols, bin.type());
+    Mat elt_struct;
+    for (int n=0; n<bin.rows ; n++){
+        for (int m=0; m<bin.cols; m++){
+            //we extract a sub-matrix from the matrix m1 with the same dimension of the kernel
+            Rect r(m,n, elt_struct_j, elt_struct_i);
+            Mat inter = padded(r).clone();
+    
+            if (pow((float)(n-(bin.rows-1))/a, 2) + pow((float)(m-(bin.cols/2))/b, 2) > 1){
+                //top of the finger : create black points
+
+                    //white pixel
+                    elt_struct = elt_struct_disc(elt_struct_i, elt_struct_j);
+            }
+            else{
+                //center of the finger
+                if (pow(n-center[0], 2) + pow(m-center[1], 2) <= pow(radius, 2)){
+                    //elt_struct = elt_struct_id(3, 3);
+                    elt_struct = elt_struct_cross_col_row(3,3, "cross");
+                }
+                //bottom of the finger
+                else{
+                    //choisir row or col
+                    elt_struct = elt_struct_cross_col_row(3,3, "cross");
+                }
+            }
+
+            result.at<float>(n,m) = erosion_coeff(elt_struct,inter);
+        }
+    }
+
+    elt_struct = elt_struct_cross_col_row(3,3, "row");
+    result = erosion_dilatation(elt_struct, result,"ero_bin");
+    result = erosion_dilatation(elt_struct, result, "dil_bin");
+    return result;
+}
 //#######################################################################
 //TOOLS
 //#######################################################################

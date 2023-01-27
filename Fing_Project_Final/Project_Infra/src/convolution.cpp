@@ -159,7 +159,7 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
             //define a kernel for each coefficient of the input matrix depending on its position
             if (pow((float)(n-center[0])/a, 2) + pow((float) (m-center[1])/b, 2) <=1){
                 //if the pixel (n,m) is located inside the ellipse, it is applied the identity kernel
-                kernel =kernel_id_light_dark(kernel_i, kernel_j, 1);
+                kernel = kernel_id_light_dark(kernel_i, kernel_j, 1);
 
             }
             else{
