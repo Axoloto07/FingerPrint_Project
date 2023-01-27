@@ -3,23 +3,18 @@
 #include "../include/convolution.hpp"
 #include "../include/check_convergence.hpp"
 
-//#include "kernel.hpp"
-//#include <opencv2/opencv.hpp>
-//#include "class_image.hpp"
-
-//#include <vector>
 using namespace std;
 
 
-//fonction to test the convolution 
+//fonction to create the blurred finger
 int main(){
 
     //----------load the image----------------------------------------
         //get the input image
-        cout<<"Please enter the full path of the image. (ex : images/clean_finger.png)"<<endl;
+        cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<endl;
         string path;
         cin>>path;
-        img fingerprint(path);
+        img fingerprint("../Project_Infra/images/" + path);
         //conversion to float
         img tmp = fingerprint.cast_to_float();
         //get the matrix
@@ -56,11 +51,11 @@ int main(){
 
         //save the result in a new image
         img convolution = img(result_2);
-        convolution.save("blurred_finger_non_norm.png");
+        convolution.save("demo_results/blurred_finger_non_norm.png");
         
         //check convergence
         float threshold = 0.05;
-        convergence("images/blurred_finger.png","blurred_finger_non_norm.png",threshold);
+        convergence("../Project_Infra/images/blurred_finger.png","demo_results/blurred_finger_non_norm.png",threshold);
         
     }
 
@@ -83,11 +78,11 @@ int main(){
 
         //save the result in a new image
         img convolution = img(result_3);
-        convolution.save("blurred_finger_norm.png");
+        convolution.save("demo_results/blurred_finger_norm.png");
         
         //check convergence
         float threshold = 0.05;
-        convergence("images/blurred_finger.png","blurred_finger_norm.png",threshold);
+        convergence("../Project_Infra/images/blurred_finger.png","demo_results/blurred_finger_norm.png",threshold);
         
     }
 return 0;

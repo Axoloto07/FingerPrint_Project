@@ -1,5 +1,5 @@
 
-add_executable(restoration test_patch.cpp)
+add_executable(restoration clean_finger_patch.cpp)
 add_executable(blurred_finger blurr_finger.cpp)
 add_executable(dry_finger dry_finger.cpp)
 add_executable(corrupted_clean corrupted_clean.cpp)

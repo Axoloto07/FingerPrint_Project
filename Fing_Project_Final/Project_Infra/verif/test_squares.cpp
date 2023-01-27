@@ -30,6 +30,6 @@ int main(){
 
     }
     
-    picture.save("test_squares.png");
+    picture.save("verif_results/squares.png");
 return 0;
 }

@@ -15,14 +15,14 @@ int main(){
 //#######################################################################
 
 
-    if(0){
+    if(1){
 
         //isotropic transformation
         img resu = isotrop_transf(5, fingerprint);
-        resu.save("isotropic_transf.png");
+        resu.save("verif_results/isotropic_transf.png");
         float threshold = 0.05;
         //check convergence
-        convergence("../Project_Infra/images/weak_finger.png","isotropic_transf.png",threshold);
+        convergence("../Project_Infra/images/weak_finger.png","verif_results/isotropic_transf.png",threshold);
 
     }
 
@@ -33,10 +33,10 @@ int main(){
     if(1){
         //anisotropic transformation without rotation
         img resu = anisotrop_transf(0, fingerprint);
-        resu.save("anisotropic_transf_non_rotation.png");
+        resu.save("verif_results/anisotropic_transf_non_rotation.png");
         float threshold = 0.05;
         //check convergence
-        convergence("../Project_Infra/images/weak_finger.png","anisotropic_transf_non_rotation.png",threshold);
+        convergence("../Project_Infra/images/weak_finger.png","verif_results/anisotropic_transf_non_rotation.png",threshold);
 
     }
 
@@ -44,7 +44,7 @@ int main(){
         //anisotropic transformation with rotation
         img fingerprint("../Project_Infra/images/warp1_finger.png");
         img resu = anisotrop_transf(-0.3*3.14, fingerprint);
-        resu.save("anisotropic_transf_rotation.png");
+        resu.save("verif_results/anisotropic_transf_rotation.png");
     }
 return 0;
 }

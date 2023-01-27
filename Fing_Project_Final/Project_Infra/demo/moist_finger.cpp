@@ -9,10 +9,10 @@ int main(){
 
 //------------get the input--------------------------------------
     //get the input image
-    cout<<"Please enter the full path of the image. (ex : images/clean_finger.png)"<<endl;
+    cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<endl;
     string path;
     cin>>path;
-    img fingerprint(path);
+    img fingerprint("../Project_Infra/images/" + path);
     img tmp = fingerprint.cast_to_float();
     Mat m1 = tmp.get_matrix();
 
@@ -40,7 +40,7 @@ int main(){
         Mat binary = binarization(m1,threshold);
 
         //binarisation of the moist finger
-        img fingerprint("images/moist_finger.png");
+        img fingerprint("../Project_Infra/images/moist_finger.png");
         img tmp = fingerprint.cast_to_float();
         Mat m2 = tmp.get_matrix();
         proba = proba_distr(m2);
@@ -48,16 +48,16 @@ int main(){
         Mat binary_moist = binarization(m2,threshold);
         convert_negative(binary_moist);
         img verif = img(binary_moist);
-        verif.save("moist_binary.png");
+        verif.save("demo_results/moist_binary.png");
 
         //apply the dilation
         Mat result_bin = dilation_nunif(3, 3, 1.3*b, 0.95*b, radius, center, binary, "bin");
         convert_negative(result_bin);
         img test = img(result_bin);
-        test.save("moist_finger_bin.png");
+        test.save("demo_results/moist_finger_bin.png");
 
         //convergence
-        convergence("moist_binary.png","moist_finger_bin.png",0.05);
+        convergence("demo_results/moist_binary.png","demo_results/moist_finger_bin.png",0.05);
 
 
     }
@@ -68,8 +68,8 @@ int main(){
     if (gray){ 
         Mat result_gray = dilation_nunif(3, 3, 1.3*b, 0.95*b, radius, center, m1, "gray");
         img test = img(result_gray);
-        test.save("moist_finger_gray.png");
-        convergence("images/moist_finger.png","moist_finger_gray.png",0.05);
+        test.save("demo_results/moist_finger_gray.png");
+        convergence("../Project_Infra/images/moist_finger.png","demo_results/moist_finger_gray.png",0.05);
 
     }
     

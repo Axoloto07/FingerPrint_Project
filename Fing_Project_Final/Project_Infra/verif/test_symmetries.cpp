@@ -25,10 +25,10 @@ int main(){
     //symmetry wrt the diagonal y = x
     img symd2 = fingerprint.sym_diag_inv();
 
-    symd.save("test_sym_diag.png");
-    symx.save("test_sym_x.png");
-    symy.save("test_sym_y.png");
-    symd2.save("test_sym_diag_inv.png");
+    symd.save("verif_results/sym_diag.png");
+    symx.save("verif_results/sym_x.png");
+    symy.save("verif_results/sym_y.png");
+    symd2.save("verif_results/sym_diag_inv.png");
 
 return 0;
 }

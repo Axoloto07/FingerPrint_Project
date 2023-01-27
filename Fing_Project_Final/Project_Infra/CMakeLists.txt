@@ -17,7 +17,8 @@ add_subdirectory(src)
 # add_subdirectory(docs)
 add_subdirectory(demo)
 add_subdirectory(verif)
-
+add_subdirectory(verif_results)
+add_subdirectory(demo_results)
 
 # # Download googletest while doing the configuration
 # configure_file(CMakeLists.txt.in

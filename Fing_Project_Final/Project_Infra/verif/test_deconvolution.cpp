@@ -3,7 +3,6 @@
 #include "../include/check_convergence.hpp"
 
 //function to test some tools for the deconvolution
-
 int main(){
     
     cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<endl;

@@ -9,7 +9,7 @@ int main(){
 //#######################################################################  
 
     //get the input image
-    img fingerprint("images/clean_blur_ex.png");
+    img fingerprint("../Project_Infra/images/clean_blur_ex.png");
     img tmp = fingerprint.cast_to_float();
     Mat input_dense = tmp.get_matrix();
     //choose the option to run
@@ -66,12 +66,12 @@ int main(){
         // }
 
         img picture = img(result);
-        picture.save("corrupted.png");
+        picture.save("demo_results/corrupted.png");
         picture = img(result_1);
-        picture.save("corrupted_cut.png");
+        picture.save("demo_results/corrupted_cut.png");
 
-        convergence("corrupted_cut.png","corrupted_blur_ex.png", 0.05);
-        mean_squared_error("corrupted_cut.png","corrupted_blur_ex.png");
+        convergence("demo_results/corrupted_cut.png","../Project_Infra/images/corrupted_blur_ex.png", 0.05);
+        mean_squared_error("demo_results/corrupted_cut.png","../Project_Infra/images/corrupted_blur_ex.png");
     
     }
 
@@ -89,9 +89,9 @@ int main(){
 
         //save the result in a new image
         img verif = img(result_2);
-        verif.save("corrupted_verif.png");
-        convergence("corrupted_verif.png", "corrupted.png", 0.05);
-        mean_squared_error("corrupted_verif.png", "corrupted.png");
+        verif.save("demo_results/corrupted_verif.png");
+        convergence("demo_results/corrupted_verif.png", "demo_results/corrupted.png", 0.05);
+        mean_squared_error("demo_results/corrupted_verif.png", "demo_results/corrupted.png");
     }
     
 
@@ -101,7 +101,7 @@ int main(){
 
     if(clean){
         //-------------get the output-------------------
-        img fingerprint("images/corrupted_blur_ex.png");
+        img fingerprint("../Project_Infra/images/corrupted_blur_ex.png");
         img tmp = fingerprint.cast_to_float();
         Mat output = tmp.get_matrix();
 
@@ -120,9 +120,9 @@ int main(){
 
         Mat result = least_squares_result(doubly_block,0.5,padded);
         img picture = img(result);
-        picture.save("clean.png");
-        convergence("clean_blur_ex.png", "clean.png", 0.05);
-        mean_squared_error("clean_blur_ex.png", "clean.png");
+        picture.save("demo_results/clean.png");
+        convergence("../Project_Infra/images/clean_blur_ex.png", "demo_results/clean.png", 0.05);
+        mean_squared_error("../Project_Infra/images/clean_blur_ex.png", "demo_results/clean.png");
     }
 return 0;
 }

@@ -37,7 +37,7 @@ int main(){
         result = erosion_dilatation(elt_structure, bin,"dil_bin");
         convert_negative(result);
         test = img(result);
-        test.save("dilation_bin_cross.png");
+        test.save("verif_results/dilation_bin_cross.png");
     }
 
 //#######################################################################
@@ -48,7 +48,7 @@ int main(){
         elt_structure = elt_struct_cross_col_row(3,3, "col");
         result = erosion_dilatation(elt_structure, m1,"dil_gray");
         test = img(result);
-        test.save("dilation_gray_col.png");
+        test.save("verif_results/dilation_gray_col.png");
     }
 
 //#######################################################################
@@ -60,7 +60,7 @@ int main(){
         result = erosion_dilatation(elt_structure, bin,"ero_bin");
         convert_negative(result);
         test = img(result);
-        test.save("erosion_bin_disc.png");
+        test.save("verif_results/erosion_bin_disc.png");
     }
 
 //#######################################################################
@@ -71,7 +71,7 @@ int main(){
         elt_structure = elt_struct_diamond(5,5);
         result = erosion_dilatation(elt_structure, m1,"ero_gray");
         test = img(result);
-        test.save("erosion_gray_diamond.png");
+        test.save("verif_results/erosion_gray_diamond.png");
     }
 
 //#######################################################################
@@ -83,11 +83,11 @@ int main(){
         result = erosion_dilatation(elt_structure, m1,"ero_gray");
         result = erosion_dilatation(elt_structure, result, "dil_gray");
         test = img(result);
-        test.save("erosion_dilation.png");
+        test.save("verif_results/erosion_dilation.png");
         result = erosion_dilatation(elt_structure, m1,"dil_gray");
         result = erosion_dilatation(elt_structure, result, "ero_gray");
         test = img(result);
-        test.save("dilation_erosion.png");
+        test.save("verif_results/dilation_erosion.png");
     }
 
 

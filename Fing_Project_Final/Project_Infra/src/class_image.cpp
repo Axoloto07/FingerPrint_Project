@@ -30,8 +30,8 @@ img::img(){
 
 void img::save(string filename){
 //save an image in a file
-    // cout<<"The file "<<filename<<" has been created"<<endl;
-    // cout<<endl;
+    cout<<"The file "<<filename<<" has been created"<<endl;
+    cout<<endl;
     imwrite(filename, matrix);
 
 }

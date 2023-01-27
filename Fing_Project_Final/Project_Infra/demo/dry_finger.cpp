@@ -9,10 +9,10 @@ int main(){
 
 //------------get the input--------------------------------------
     //get the input image
-    cout<<"Please enter the full path of the image. (ex : images/clean_finger.png)"<<endl;
+    cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<endl;
     string path;
     cin>>path;
-    img fingerprint(path);
+    img fingerprint("../Project_Infra/images/" + path);
     img tmp = fingerprint.cast_to_float();
     Mat m1 = tmp.get_matrix();
     vector<int> center = fingerprint.coord_center();
@@ -42,7 +42,7 @@ int main(){
         Mat binary = binarization(m1,threshold);
 
         //binarisation of the moist finger
-        img fingerprint("images/dry_finger.png");
+        img fingerprint("../Project_Infra/images/dry_finger.png");
         img tmp = fingerprint.cast_to_float();
         Mat m2 = tmp.get_matrix();
         proba = proba_distr(m2);
@@ -50,7 +50,7 @@ int main(){
         Mat binary_dry = binarization(m2,threshold);
         convert_negative(binary_dry);
         img verif = img(binary_dry);
-        verif.save("dry_binary.png");
+        verif.save("demo_results/dry_binary.png");
 
         //apply the dilation
         //Mat result_ero_1 = erosion_dilatation(elt_structure, binary, "ero_bin");
@@ -58,10 +58,10 @@ int main(){
         Mat result_ero = erosion_nunif(5,5,binary, m1.cols/2, m1.cols, center,0.1*m1.rows,  "gray");
         convert_negative(result_ero);
         img test = img(result_ero);
-        test.save("dry_finger_bin.png");
+        test.save("demo_results/dry_finger_bin.png");
 
         //convergence
-        convergence("dry_binary.png","dry_finger_bin.png",0.05);
+        convergence("demo_results/dry_binary.png","demo_results/dry_finger_bin.png",0.05);
 
 
     }
@@ -74,10 +74,10 @@ int main(){
         //Mat result_ero = erosion_nunif(5,5,result_ero_1, 1.1*m1.cols/2, m1.cols, "gray");
         Mat result_ero = erosion_nunif(5,5,m1, m1.cols/2, m1.cols, center,0.1*m1.rows,  "gray");
         img test = img(result_ero);
-        test.save("dry_finger_gray.png");
+        test.save("demo_results/dry_finger_gray.png");
 
         //convergence
-        convergence("images/dry_finger.png","dry_finger_gray.png",0.05);
+        convergence("../Project_Infra/images/dry_finger.png","demo_results/dry_finger_gray.png",0.05);
     }
     
         

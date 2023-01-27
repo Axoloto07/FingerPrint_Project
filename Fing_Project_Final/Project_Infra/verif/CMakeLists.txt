@@ -1,5 +1,4 @@
 # Add this line to the CMakeLists.txt containing tests
-add_executable(test_patch test_patch.cpp)
 add_executable(test_an_isotrop test_an_isotrop.cpp)
 add_executable(test_convolution test_convolution.cpp)
 add_executable(test_deconvolution test_deconvolution.cpp)
@@ -13,12 +12,7 @@ add_executable(test_symmetries test_symmetries.cpp)
 #    COMMAND test_finger
 #    )
     
-target_link_libraries(test_patch
-    PRIVATE
-    FingerPrint
-    ${OpenCV_LIBS} m
-    alg
-)
+
 target_link_libraries(test_an_isotrop
     PRIVATE
     FingerPrint
