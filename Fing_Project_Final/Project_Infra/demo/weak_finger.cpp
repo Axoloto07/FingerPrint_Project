@@ -50,6 +50,8 @@ int main(){
         float threshold = 0.05;
         //check convergence
         convergence("../Project_Infra/images/weak_finger.png","demo_results/weak_finger_aniso.png",threshold);
+        mean_squared_error("../Project_Infra/images/weak_finger.png","demo_results/weak_finger_aniso.png");
+
     }
 return 0;
 }

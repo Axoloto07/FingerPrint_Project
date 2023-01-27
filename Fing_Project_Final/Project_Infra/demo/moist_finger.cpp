@@ -58,6 +58,7 @@ int main(){
 
         //convergence
         convergence("demo_results/moist_binary.png","demo_results/moist_finger_bin.png",0.05);
+        mean_squared_error("demo_results/moist_binary.png","demo_results/moist_finger_bin.png");
 
 
     }
@@ -70,6 +71,7 @@ int main(){
         img test = img(result_gray);
         test.save("demo_results/moist_finger_gray.png");
         convergence("../Project_Infra/images/moist_finger.png","demo_results/moist_finger_gray.png",0.05);
+        mean_squared_error("../Project_Infra/images/moist_finger.png","demo_results/moist_finger_gray.png");
 
     }
     

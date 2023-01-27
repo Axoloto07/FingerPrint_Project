@@ -56,6 +56,7 @@ int main(){
         //check convergence
         float threshold = 0.05;
         convergence("../Project_Infra/images/blurred_finger.png","demo_results/blurred_finger_non_norm.png",threshold);
+        mean_squared_error("../Project_Infra/images/blurred_finger.png", "demo_results/blurred_finger_non_norm.png");
         
     }
 
@@ -83,6 +84,7 @@ int main(){
         //check convergence
         float threshold = 0.05;
         convergence("../Project_Infra/images/blurred_finger.png","demo_results/blurred_finger_norm.png",threshold);
+        mean_squared_error("../Project_Infra/images/blurred_finger.png", "demo_results/blurred_finger_norm.png");
         
     }
 return 0;

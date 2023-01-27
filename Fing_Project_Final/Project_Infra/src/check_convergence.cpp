@@ -25,8 +25,16 @@ float convergence(string filename1, string filename2, float threshold){
             }    
         }
     }
+
     //return the proportion of pixels "close enough" (given the threshold) in both images
     float result = (float)counter/(m1.get_rows()*m1.get_cols())*100;
+
+    //print the name of the image
+    size_t pos_1 = filename1.find_last_of('/');
+    filename1 = filename1.substr(pos_1+1);
+    size_t pos_2 = filename2.find_last_of('/');
+    filename2 = filename2.substr(pos_2+1);
+    
     cout<<filename1<<" VS "<<filename2<<endl;
     cout<< "Proportion of matching coefficients : " << result<<" %"<<endl;
     cout<<endl;
@@ -56,6 +64,12 @@ float mean_squared_error(string filename1, string filename2){
         sum/=(m1.get_cols()*m1.get_rows());
     
     }
+    //print the name of the image
+    size_t pos_1 = filename1.find_last_of('/');
+    filename1 = filename1.substr(pos_1+1);
+    size_t pos_2 = filename2.find_last_of('/');
+    filename2 = filename2.substr(pos_2+1);
+
     cout<<filename1<<" VS "<<filename2<<endl;
     cout<< "Mean squared error : " << sum<<endl;
     cout<<endl;

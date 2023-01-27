@@ -9,7 +9,7 @@ Before running the code :
 - from the terminal, go in this new directory "build"
 - in the terminal enter : "cmake ../Project_Infra/"
 
- 
+
 To run the code : 
 
 - Go in the directory build.

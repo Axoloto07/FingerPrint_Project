@@ -62,6 +62,7 @@ int main(){
 
         //convergence
         convergence("demo_results/dry_binary.png","demo_results/dry_finger_bin.png",0.05);
+        mean_squared_error("demo_results/dry_binary.png","demo_results/dry_finger_bin.png");
 
 
     }
@@ -78,6 +79,8 @@ int main(){
 
         //convergence
         convergence("../Project_Infra/images/dry_finger.png","demo_results/dry_finger_gray.png",0.05);
+        mean_squared_error("../Project_Infra/images/dry_finger.png","demo_results/dry_finger_gray.png");
+        
     }
     
         
