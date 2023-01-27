@@ -2,7 +2,7 @@
 
 //----------------Restoration---------------------
 
-map<int, patch> dic_patch(img &image, std::map<std::pair<int, int>,int> mask, int nb_patch,  int size){
+map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size){
 
     // Initializing the random seed
     srand (time(NULL));
@@ -23,7 +23,7 @@ map<int, patch> dic_patch(img &image, std::map<std::pair<int, int>,int> mask, in
 
                 // We check that the patch that we've randomly choosen is not
                 // on the part of the image to restor 
-                if (mask.count(std::make_pair<int, int>(i_coor - size/2 + i, j_coor - size/2 + j)) == 1){
+                if (mask_o.get_pix_val(i, j) == 0){
                     k -= 1;
                     goto pass;
                 }
@@ -74,21 +74,22 @@ int best_patch(patch p, patch p_mask, map<int, patch> dico){
 }
 
 
-void restor_line(img &image, std::map<std::pair<int, int>,int> mask, int nb_patch, int size){
+void restor_line(img &image, mask &mask_o, int nb_patch, int size){
 
     // Creating the comparison dictionary
-    map<int, patch> dic = dic_patch(image, mask, nb_patch, size);
+    map<int, patch> dic = dic_patch(image, mask_o, nb_patch, size);
     cout<<"[Dictionnary successfully created]"<<endl;
 
     // Iterating on the pixel of the mask
-    for (std::map<std::pair<int, int>,int>::iterator it=mask.begin(); it!=mask.end(); it++){
-
+    for (int i=0; i<mask_o.size_vect(); i++){
 
             // Create the patch from the neighbor pixels
-            patch p = patch(image, size, (it->first).first, (it->first).second);
-            patch p_mask = patch(mask, size, (it->first).first, (it->first).second);
+            std::pair<int, int> coor = mask_o.get_val(i);
+            patch p = patch(image, size, coor.first, coor.second);
+            patch p_mask = patch(mask_o.get_matrix(), size, mask_o.get_val(i).first, mask_o.get_val(i).second);
             // Modify the pixel with the best matching pixel
-            image.modif_pix((it->first).first, (it->first).second, best_patch(p.mult(p_mask), p_mask, dic));
+            image.modif_pix(coor.first, coor.second, best_patch(p.mult(p_mask), p_mask, dic));
+            mask_o.modif_pix(coor.first, coor.second, 1);
 
     }
 

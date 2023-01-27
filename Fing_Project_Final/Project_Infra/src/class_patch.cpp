@@ -1,5 +1,43 @@
 #include "../include/class_patch.hpp"
 
+
+
+mask::mask(img &image){
+   
+   matrix = Mat(image.get_rows(), image.get_cols(), CV_8U, Scalar(1));
+   
+}
+
+void mask::add_vect(std::pair<int, int> coord){
+
+   vect_coord.push_back(coord);
+
+}
+
+
+int mask::size_vect(){
+
+   return vect_coord.size();
+
+}
+
+
+pair<int, int> mask::get_val(int pos){
+
+   return vect_coord[pos];
+
+}
+
+
+
+
+
+
+
+
+
+
+
 //----------------Constructors---------------------
 
 patch::patch(img image, int size, int ci, int cj){
@@ -21,22 +59,22 @@ patch::patch(int rows, int cols){
 
 }
 
-patch::patch(std::map<std::pair<int,int>, int> mask, int ci, int cj, int size){
+// patch::patch(mask &mask_o, int ci, int cj, int size){
    
-    matrix = Mat(size, size, CV_8U, Scalar(1));
-    for (int i = 0; i<size; i++){
-      for (int j = 0; j<size; j++){
+//     matrix = Mat(size, size, CV_8U, Scalar(1));
+//     for (int i = 0; i<size; i++){
+//       for (int j = 0; j<size; j++){
 
-         if (mask.count(std::make_pair(ci - size/2 + i, cj - size/2 + j)) == 1){
+//          if (mask_o.get_pix_val(i, j) == 0){
 
-            matrix.at<uchar>(i, j) = 0;
+//             matrix.at<uchar>(i, j) = 0;
 
-         }
+//          }
 
-      }
-    }
+//       }
+//     }
 
-}
+// }
 
 
 
@@ -87,3 +125,5 @@ patch patch::mult(patch p){
     return mult;
 
 }
+
+

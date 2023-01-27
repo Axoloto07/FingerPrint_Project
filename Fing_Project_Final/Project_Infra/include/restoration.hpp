@@ -15,7 +15,7 @@
  * @param size The size of the patches to sample
  * @return map<int, patch> A dictionary with int as the key and patches as a object
  */
-map<int, patch> dic_patch(img &image, std::map<std::pair<int, int>,int> mask, int nb_patch,  int size);
+map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size);
 
 /**
  * @brief Find the patch that minimize the distance to p among a dictionnary
@@ -34,7 +34,7 @@ int best_patch(patch p, patch m, map<int, patch> dico);
  * @param nb_patch The number of patches to sample for the restoration process
  * @param size The size of the patches to use for the resoration process
  */
-void restor_line(img &image, std::map<std::pair<int, int>,int> mask, int nb_patch, int size);
+void restor_line(img &image, mask &mask_o, int nb_patch, int size);
 
 
 // void restor_circle(img &image, img &mask, int nb_patch, int size);
