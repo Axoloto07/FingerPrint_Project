@@ -41,7 +41,7 @@ float mean_squared_error(string filename1, string filename2);
 //#######################################################################
 
 /**
- * @brief plot the gray level histogram of one input image
+ * @brief plot the gray level histogram of two input images
  * 
  * @param filename1 the input image
  * @param filename2 the input image

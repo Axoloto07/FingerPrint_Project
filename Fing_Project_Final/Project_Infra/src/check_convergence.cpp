@@ -94,6 +94,7 @@ float mean_squared_error(string filename1, string filename2){
 //#######################################################################
 
 void histogram(string filename1,string filename2, string directory_output){
+    //get the two images
     img fingerprint1(filename1);
     Mat input1 = fingerprint1.get_matrix();
     img fingerprint2(filename2);
