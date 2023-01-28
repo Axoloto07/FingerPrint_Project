@@ -93,32 +93,37 @@ float mean_squared_error(string filename1, string filename2){
 //HISTOGRAM OF GRAY LEVELS
 //#######################################################################
 
-void histrogram(string filename){
-    img fingerprint(filename);
-    Mat input = fingerprint.get_matrix();
+void histogram(string filename1,string filename2, string directory_output){
+    img fingerprint1(filename1);
+    Mat input1 = fingerprint1.get_matrix();
+    img fingerprint2(filename2);
+    Mat input2 = fingerprint2.get_matrix();
     //define the x axis
     int histSize = 256;
     float range[] = {0, 256};
     const float* histRange[] = {range};
     bool uniform = true, accumulate = false;
-    Mat g_hist;
-    calcHist(&input, 1, 0, Mat(), g_hist, 1, &histSize, histRange, uniform, accumulate);
+    Mat g_hist1, g_hist2;
+    calcHist(&input1, 1, 0, Mat(), g_hist1, 1, &histSize, histRange, uniform, accumulate);
+    calcHist(&input2, 1, 0, Mat(), g_hist2, 1, &histSize, histRange, uniform, accumulate);
     //set the size of the histogram display
     int hist_i = 600;
     int hist_j = 500;
     Mat histo = Mat::zeros(hist_i, hist_j, CV_8U);
     int bin_w = cvRound((double) hist_i / histSize);
-    normalize(g_hist, g_hist, 0, histo.rows, NORM_MINMAX, -1, Mat());
+    normalize(g_hist1, g_hist1, 0, histo.rows, NORM_MINMAX, -1, Mat());
+    normalize(g_hist2, g_hist2, 0, histo.rows, NORM_MINMAX, -1, Mat());
+
     //plot the histogram
     for (int i=1; i<histSize; i++){
-        line(histo, Point(bin_w*(i-1), hist_j - cvRound(g_hist.at<float>(i-1))), Point(bin_w*(i), hist_j - cvRound(g_hist.at<float>(i))), Scalar(255,0,0),2,8,0);
-
+        line(histo, Point(bin_w*(i-1), hist_j - cvRound(g_hist1.at<float>(i-1))), Point(bin_w*(i), hist_j - cvRound(g_hist1.at<float>(i))), Scalar(255,0,0),2,8,0);
+        line(histo, Point(bin_w*(i-1), hist_j - cvRound(g_hist2.at<float>(i-1))), Point(bin_w*(i), hist_j - cvRound(g_hist2.at<float>(i))), Scalar(100,0,0),2,8,0);
     }
     //save the result into an image
     img resu = img(histo);
-    size_t pos = filename.find_last_of('/');
-    filename = filename.substr(pos+1);
-    filename = "histogram_" + filename;
+    size_t pos1 = filename1.find_last_of('/');
+    size_t pos2 = filename2.find_last_of('/');
+    string filename = filename1.substr(pos1+1) + "_" + filename2.substr(pos2+1);
+    filename = directory_output + "/histogram_" + filename;
     resu.save(filename);
-    cout<<"The file "<<filename<< " has been created."<<endl;
 }

@@ -60,7 +60,6 @@ int main(){
         cout<<"Verifications :"<<endl;
         convergence("../Project_Infra/images/clean_finger.png","verif_results/conv_id_fft.png",threshold);
         convergence("../Project_Infra/images/clean_finger.png","verif_results/conv_id_filter.png",threshold);
-
     }
   
 
@@ -91,7 +90,7 @@ int main(){
         convergence("verif_results/conv_blur.png","verif_results/conv_blur_fft.png",threshold);
         convergence("verif_results/conv_blur_filter.png","verif_results/conv_blur.png",threshold);
         convergence("verif_results/conv_blur_filter.png","verif_results/conv_blur_fft.png",threshold);
-
+        histogram("verif_results/conv_blur_filter.png","verif_results/conv_blur.png", "verif_results");
     }
 
 
@@ -180,17 +179,16 @@ int main(){
         Mat kernel = kernel_gaussian(1,1,3,3);
         Mat result_2 = discrete_conv(result_1, kernel, 'r');
 
-
         //save the result in a new image
         img convolution = img(result_2);
         convolution.save("verif_results/conv_blur_nunif.png");
-        
+
         //check convergence
         float threshold = 0.05;
         cout<<"Blurr nunif kernels :"<<endl;
         convergence("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif.png",threshold);
         mean_squared_error("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif.png");
-        
+        histogram("../Project_Infra/images/blurred_finger.png", "verif_results/conv_blur_nunif.png", "verif_results");
     }
 
 
@@ -221,7 +219,7 @@ int main(){
         cout<<"Blurr nunif normalized kernels :"<<endl;
         convergence("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif_norm.png",threshold);
         mean_squared_error("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif_norm.png");
-        
+        histogram("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif_norm.png", "verif_results");
     }
 
 

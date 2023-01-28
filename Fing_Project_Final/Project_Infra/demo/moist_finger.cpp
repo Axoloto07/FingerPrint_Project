@@ -82,6 +82,7 @@ int main(){
         //compare 'moist_finger' with dilated output
         convergence("../Project_Infra/images/moist_finger.png","demo_results/moist_finger_gray.png",0.05);
         mean_squared_error("../Project_Infra/images/moist_finger.png","demo_results/moist_finger_gray.png");
+        histogram("../Project_Infra/images/moist_finger.png", "demo_results/moist_finger_gray.png", "demo_results");
 
     }
 return 0;

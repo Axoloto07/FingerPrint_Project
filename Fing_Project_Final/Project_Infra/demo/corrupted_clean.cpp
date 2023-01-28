@@ -21,7 +21,7 @@ int main(){
     cin>>corr;
     bool check = 0;
     if (corr){
-        cout<<"Do you want the checking of our result? (enter 1 for yes, 0 for no)"<<endl;
+        cout<<"Do you want the checking of our results? (enter 1 for yes, 0 for no)"<<endl;
         cin>>check;
     }
     bool clean;
@@ -62,12 +62,12 @@ int main(){
         //cut the image to have the good dimensions
         Mat result_1 = cut(result, 3,1,4);
 
-        //Please decomment to adjust the colors of the image
-        // for (int i=0; i<result.rows; i++){
-        //     for (int j=0; j<result.cols; j++){
-        //         result.at<float>(i, j) *= 1.15;
-        //     }
-        // }
+        //adjust the colors of the image cut
+        for (int i=0; i<result_1.rows; i++){
+            for (int j=0; j<result_1.cols; j++){
+                result_1.at<float>(i, j) *= 1.15;
+            }
+        }
 
         //save the result in a new image
         img picture = img(result);
@@ -78,7 +78,7 @@ int main(){
         //check convergence
         convergence("demo_results/corrupted_cut.png","../Project_Infra/images/corrupted_blur_ex.png", 0.05);
         mean_squared_error("demo_results/corrupted_cut.png","../Project_Infra/images/corrupted_blur_ex.png");
-    
+        histogram("../Project_Infra/images/corrupted_blur_ex.png", "demo_results/corrupted_cut.png", "demo_results");
     }
 //#######################################################################
 //CHECK WITH THE CONVOLUTION ALGORITHM
@@ -131,6 +131,7 @@ int main(){
         //check convergence
         convergence("../Project_Infra/images/clean_blur_ex.png", "demo_results/clean.png", 0.05);
         mean_squared_error("../Project_Infra/images/clean_blur_ex.png", "demo_results/clean.png");
+        histogram("../Project_Infra/images/clean_blur_ex.png", "demo_results/clean.png", "demo_results");
     }
 return 0;
 }

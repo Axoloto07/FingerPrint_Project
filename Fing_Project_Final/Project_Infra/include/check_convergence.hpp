@@ -43,9 +43,11 @@ float mean_squared_error(string filename1, string filename2);
 /**
  * @brief plot the gray level histogram of one input image
  * 
- * @param filename the input image
+ * @param filename1 the input image
+ * @param filename2 the input image
+ * @param directory_output the directory to store the output
  */
-void histrogram(string filename);
+void histogram(string filename1, string filename2, string directory_output);
 
 
 #endif 

@@ -63,7 +63,7 @@ int main(){
         float threshold = 0.05;
         convergence("../Project_Infra/images/blurred_finger.png","demo_results/blurred_finger_non_norm.png",threshold);
         mean_squared_error("../Project_Infra/images/blurred_finger.png", "demo_results/blurred_finger_non_norm.png");
-        
+        histogram("../Project_Infra/images/blurred_finger.png", "demo_results/blurred_finger_non_norm.png", "demo_results");
     }
 
 
@@ -95,7 +95,7 @@ int main(){
         float threshold = 0.05;
         convergence("../Project_Infra/images/blurred_finger.png","demo_results/blurred_finger_norm.png",threshold);
         mean_squared_error("../Project_Infra/images/blurred_finger.png", "demo_results/blurred_finger_norm.png");
-        
+        histogram("../Project_Infra/images/blurred_finger.png","demo_results/blurred_finger_norm.png", "demo_results");
     }
 return 0;
 }
