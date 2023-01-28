@@ -58,12 +58,13 @@ Mat kernel_id_light_dark(int size_i, int size_j, float value);
  * towards the top. The kernel depends on the position of the pixel in the input image
  * @param size_i nb of rows of the kernel
  * @param size_j nb of columns of the kernel
- * @param n coordinate of the pixel in the input image
+ * @param n coordinates of the pixel in the input image
  * @param m
  * @param center the center of the highest pressure of the finger 
  * @return the non uniform pull kernel 
  */
 Mat kernel_pull(int size_i, int size_j, int n, int m, vector<int> center);
+
 
 //#######################################################################
 //NON UNIFORM CONVOLUTION
@@ -81,6 +82,8 @@ Mat kernel_pull(int size_i, int size_j, int n, int m, vector<int> center);
  * @param b 
  * @param n position of the pixel (rows)
  * @param m position of the pixel (columns)
+ * @param normalize if normlized = 'n', the energy of the kernel is preserved, otherwise
+ * it slightly increases
  * @return the kernel 
  */
 Mat kernel_nunif(int size_i, int size_j, vector<int> center, float a, float b, int n, int m, char normalize);
@@ -110,6 +113,8 @@ Mat kernel_bottom(int size_i, int size_j, float r, int m1_rows, int m1_cols, int
  * @param m position of the pixel (columns)
  * @param size_i nb of rows of the kernel
  * @param size_j nb of columns of the kernel
+ * @param m1_rows nb of rows of the input matrix
+ * @param m1_cols nb of columns of the input matrix
  * @return the kernel 
  */
 Mat kernel_energy(vector<int> center, int n, int m, int size_i, int size_j, int m1_rows, int m1_cols);
@@ -125,7 +130,7 @@ Mat kernel_energy(vector<int> center, int n, int m, int size_i, int size_j, int 
  * 
  * @param m1 the input image
  */
-void negative_img(Mat m1);
+void negative_img(Mat &m1);
 
 /**
  * @brief normalize the coefficients of a given kernel such that its energy is preserved
@@ -133,7 +138,7 @@ void negative_img(Mat m1);
  * @param m1 the kernel
  * @param sum the value used to normalize the coefficients
  */
-void normalize_mat(Mat m1, float sum);
+void normalize_mat(Mat &m1, float sum);
 
 
 #endif

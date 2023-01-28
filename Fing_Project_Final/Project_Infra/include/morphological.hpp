@@ -50,7 +50,7 @@ float find_threshold(vector<float> &frequency);
 /**
  * @brief compute the binarized version of an input image
  * pixels are transformed either in white or in black depending on their original intensity
- * if their intensity is higher than the threshold theyr are turned black
+ * if their intensity is higher than the threshold they are turned black
  * at the end, the background of the picture is white
  * 
  * @param input the input image
@@ -97,9 +97,9 @@ float erosion_coeff(Mat &elt_struct, Mat &input);
 float dilatation_coeff(Mat &elt_struct, Mat &input);
 
 /**
- * @brief compute the dilation coefficient for the center pixel of a grayscale image
+ * @brief compute the erosion coefficient for the center pixel of a grayscale image
  * here we suppose that image and struct element have the same sizes (they totally overlap)
- * the new value of the pixel of the image is equal to the minimal intensity among 
+ * the new value of the pixel of the image is equal to the maximal intensity among 
  * the black pixels of the image overlapped by the black pixels of the kernel
  * 
  * @param elt_struct the structuring element
@@ -111,7 +111,7 @@ float erosion_coeff_grayscale(Mat &elt_struct, Mat &input);
 /**
  * @brief compute the dilation coefficient for the center pixel of a grayscale image
  * here we suppose that image and struct element have the same sizes (they totally overlap)
- * the new value of the pixel of the image is equal to the maximal intensity among 
+ * the new value of the pixel of the image is equal to the minimal intensity among 
  * the black pixels of the image overlapped by the black pixels of the kernel
  * 
  * @param elt_struct the structuring element
@@ -125,10 +125,10 @@ float dilatation_coeff_grayscale(Mat &elt_struct, Mat &input);
  * input image given a structuring element
  * the user can choose the type of filtering (binary/grayscale and erosion/dilation)
  * by entering the proper third argument
- * 
+ * here the image and the element don't have the same size
  * @param elt_struct the structuring element
  * @param input the input image (grayscale or binary)
- * @param filter_type the filtering type : either erosion or dilation and either grayscale of=r binary
+ * @param filter_type the filtering type : either erosion or dilation and either grayscale or binary
  * @return the dilated/eroded image 
  */
 Mat erosion_dilatation(Mat &elt_struct, Mat &bin, string filter_type);
@@ -140,7 +140,7 @@ Mat erosion_dilatation(Mat &elt_struct, Mat &bin, string filter_type);
 
 
 /**
- * @brief compute the dilated version of a grayscale input image given a structuring element
+ * @brief compute the dilated version of a grayscale input image
  * the filtering is not uniform (the kernel changes depending on the position of the pixel)
  * several elliptic zones are determined, where the kernel to apply changes
  * 
@@ -157,18 +157,35 @@ Mat erosion_dilatation(Mat &elt_struct, Mat &bin, string filter_type);
 Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float radius, vector<int> &center, Mat &bin, string bin_gray);
 
 /**
- * @brief 
+ * @brief compute the eroded version of a grayscale input imagee
+ * the filtering is not uniform (the kernel changes depending on the position of the pixel)
+ * several elliptic zones are determined, where the kernel to apply changes
  * 
- * @param elt_struct_i 
- * @param elt_struct_j 
- * @param bin 
- * @param a 
+ * @param elt_struct_i the nb of rows of each structuring element
+ * @param elt_struct_j the nb of columns of each structuring element
+ * @param bin the input image
+ * @param a the radius lenghts of the ellipse to separate the top of the finger
  * @param b 
- * @return Mat 
+ * @param center the center of pressure of the finger
+ * @param radius the radius of the small circle where the pixels are not filtered
+ * @return the non uniformly eroded grayscale image  
  */
 Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius);
 
-Mat erosion_nunif_bin(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius);
+/**
+ * @brief compute the eroded version of a binary input imagee
+ * the filtering is not uniform (the kernel changes depending on the position of the pixel)
+ * several elliptic zones are determined, where the kernel to apply changes
+ * 
+ * @param elt_struct_i the nb of rows of each structuring element
+ * @param elt_struct_j the nb of columns of each structuring element
+ * @param bin the input image
+ * @param a the radius lenghts of the ellipse to separate the top of the finger
+ * @param b 
+ * @param center the center of pressure of the finger
+ * @return the non uniformly eroded binary image  
+ */
+Mat erosion_nunif_bin(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center);
 
 //#######################################################################
 //TOOLS

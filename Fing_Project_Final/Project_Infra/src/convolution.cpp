@@ -6,6 +6,23 @@
 //#######################################################################
 
 
+Mat conv_using_filter(Mat &m1, Mat &kernel, char border){
+//test the 2d discrete convolution with an already implemented function in opencv
+//borders are extended with replicated pixel values or with zero values
+    flip_kernel(kernel);
+    Mat result;
+    //we use the option to replicate the pixels at the borders of the image
+    if (border=='r') {
+        filter2D(m1, result, -1, kernel, Point(-1, -1), 0, BORDER_REPLICATE);
+    }
+    //by default we zero pad the image
+    else{
+        filter2D(m1, result, -1, kernel, Point(-1, -1), 0, BORDER_CONSTANT);
+    }
+    return result;
+}
+
+
 Mat conv_using_fft(Mat &m1, Mat &kernel){
     //COST : N*M*Ln(NM)
     //perform the convolution using the fft
@@ -17,21 +34,11 @@ Mat conv_using_fft(Mat &m1, Mat &kernel){
             m1_padded.at<float>(i, j) = m1.at<float>(i, j);
         }
     }
-    //Mat m1_padded = padd_bottom_left(kernel, m1);
-
     //pad the kernel with zeros and perform circular symmetry on its coefficients
-    //flip_kernel(kernel);
     Mat kernel_padded = kernel_swap_fft(m1_padded, kernel);
-    // Mat kernel_padded = Mat::zeros(m1.rows+kernel.rows-1, m1.cols+kernel.cols-1, m1.type());
-    // for (int i = 0; i<kernel.rows; i++){
-    //     for (int j =0; j<kernel.cols; j++){
-    //         kernel_padded.at<float>(i, j) = kernel.at<float>(i, j);
-    //     }
-    // }
-    //Mat kernel_padded = padd_bottom_left(m1, kernel);
+
     //perform the dft of the padded image
     dft(m1_padded, m1_padded);
-
     //perform the dft of the padded kernel
     dft(kernel_padded, kernel_padded);
 
@@ -59,21 +66,6 @@ Mat conv_using_fft(Mat &m1, Mat &kernel){
 }
 
 
-Mat conv_using_filter(Mat &m1, Mat &kernel, char border){
-//test the 2d discrete convolution with an already implemented function in opencv
-//borders are extended with replicated pixel values or with zero values
-    flip_kernel(kernel);
-    Mat result;
-    //we use the option to replicate the pixels at the borders of the image
-    if (border=='r') {
-        filter2D(m1, result, -1, kernel, Point(-1, -1), 0, BORDER_REPLICATE);
-    }
-    //by default we zero pad the image
-    else{
-        filter2D(m1, result, -1, kernel, Point(-1, -1), 0, BORDER_CONSTANT);
-    }
-    return result;
-}
 
 //#######################################################################
 //HOME MADE CONVOLUTION
@@ -81,17 +73,16 @@ Mat conv_using_filter(Mat &m1, Mat &kernel, char border){
 
 
 Mat discrete_conv(Mat &m1, Mat &kernel, char border){
-//COST : N*N*M*M
-//perform the 2d discrete convolution
-    //we suppose the filter is of odd dimension
+    //COST : N*N*M*M
+    //perform the 2d discrete convolution
+    //we suppose the filter is of odd dimensions
     Mat tmp = Mat::zeros(m1.rows + kernel.rows-1, m1.cols+ kernel.cols -1, m1.type());
 
     if (border == 'r'){
-    //we pad the matrix m1 with REPLICATED borders to adapt to the filter
-    //the initial matrix is placed at the center of the new matrix
+        //we pad the matrix m1 with REPLICATED borders to adapt to the filter
+        //the initial matrix is placed at the center of the new matrix
         copyMakeBorder(m1,tmp,kernel.rows/2,kernel.rows/2, kernel.cols/2,kernel.cols/2, BORDER_REPLICATE);
     }
-
     else{
         //we pad the matrix m1 with ZEROS to adapt to the filter's size
         tmp = padd_center(m1, kernel.rows, kernel.cols);
@@ -103,20 +94,14 @@ Mat discrete_conv(Mat &m1, Mat &kernel, char border){
     //the output matrix has the same size as the input matrix m1
     Mat result = Mat::zeros(m1.rows, m1.cols, m1.type());
 
-    //COUT : n^2
     //we go through the matrix's coeff to compute each coeff of the output matrix
     for (int n=0; n<m1.rows ; n++){
         for (int m=0; m<m1.cols; m++){
             //we extract a sub-matrix from the matrix m1 with the same dimension of the kernel
             Rect r(m,n, kernel.cols, kernel.rows);
-            //COUT : 1 sinon n^2 car kernel petit
             Mat inter = tmp(r).clone();
-
-           
-
             //we compute the coefficient at position (n, m) by multiplying
             //coef by coef the kernel and the extracted submatrix
-            //COUT : 1 car on suppose que le filtre est de petite taille
             result.at<float>(n,m) = convol_coeff(inter,kernel);
         }
     }
@@ -140,20 +125,15 @@ float convol_coeff(Mat &m1, Mat &kernel_flip){
 
 Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, float b, char position, char normalize){
     //we suppose the filter is of odd dimensions
-
-    //we add zeros to the matrix m1 to adapt to the filter
-    //Mat tmp = padd_center(m1, kernel_i, kernel_j);
     //we replicate the image for the border
     Mat tmp;
     copyMakeBorder(m1,tmp,kernel_i/2,kernel_i/2, kernel_j/2,kernel_j/2, BORDER_REPLICATE);
     Mat result = Mat::zeros(m1.rows, m1.cols, m1.type());
     Mat kernel;
-    //COUT : n^2
     for (int n=0; n<m1.rows; n++){
         for (int m=0; m<m1.cols; m++){
             //we extract a sub-matrix from the matrix m1 with the same dimension of the kernel
             Rect r(m, n, kernel_j, kernel_i);
-            //COUT : 1 sinon n^2 car kernel petit
             Mat inter = tmp(r).clone();
 
             //define a kernel for each coefficient of the input matrix depending on its position
@@ -169,7 +149,7 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
                     kernel = kernel_bottom(kernel_i, kernel_j, a, m1.rows, m1.cols, n, m);
 
                 }
-                //in this case it is on the top of the image
+                //in this case it is on the top of the image (pull kernel)
                 else{
                     kernel = kernel_nunif(kernel_i, kernel_j, center, a, b, n, m, normalize);
                 }
@@ -179,8 +159,7 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
             flip_kernel(kernel);
 
             //we compute the coefficient at position (n, m)
-            //it is the Hadamart product between the kernel and the extracted submatrix
-            //COUT : 1 car on suppose que le filtre est de petite taille
+            //it is the Hadamard product between the kernel and the extracted submatrix
             result.at<float>(n,m) = convol_coeff(inter,kernel);
         }
     }
@@ -189,7 +168,6 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
 
 Mat convol_energy(Mat &m1, int kernel_i, int kernel_j, vector<int> center){
     //we suppose the filter is of odd dimensions
-
     //we add zeros to the matrix m1 to adapt to the filter
     Mat tmp = padd_center(m1, kernel_i, kernel_j);
 
@@ -197,19 +175,16 @@ Mat convol_energy(Mat &m1, int kernel_i, int kernel_j, vector<int> center){
     negative_img(tmp);
     Mat result = Mat::zeros(m1.rows, m1.cols, m1.type());
     Mat kernel;
-    //COUT : n^2
     for (int n=0; n<m1.rows; n++){
         for (int m=0; m<m1.cols; m++){
             //we extract a sub-matrix from the matrix m1 with the same dimension of the kernel
             Rect r(m, n, kernel_j, kernel_i);
-            //COUT : 1 sinon n^2 car kernel petit
             Mat inter = tmp(r).clone();
-
             kernel = kernel_energy(center, n, m, kernel_i, kernel_j, m1.rows, m1.cols);
 
             //flip the kernel
             flip_kernel(kernel);
-            //compute the Hadamart product between the flipped kernel and the extracted submatrix
+            //compute the Hadamard product between the flipped kernel and the extracted submatrix
             result.at<float>(n,m) = convol_coeff(inter,kernel);
         }
     }
@@ -227,7 +202,6 @@ Mat padd_center(Mat &m1, int kernel_i, int kernel_j){
     //we add zeros to the matrix m1 to adapt to the filter
     Mat tmp = Mat::zeros(m1.rows + kernel_i-1, m1.cols+ kernel_j-1, m1.type());
     //we put m1 at the center of the matrix tmp
-    //COUT : n^2
     for (int i=(kernel_i-1)/2; i<(kernel_i-1)/2 + m1.rows; i++){
         for (int j=(kernel_j -1)/2; j<(kernel_j -1)/2 + m1.cols; j++){
             tmp.at<float>(i,j) = m1.at<float>(i-(kernel_i-1)/2,j-(kernel_j -1)/2);
@@ -273,7 +247,6 @@ Mat kernel_swap_fft(Mat &m1, Mat &kernel){
 
     Mat kernel_padded = Mat::zeros(m1.rows,m1.cols,m1.type());
     //perform a circular symmetry on the kernel's coeff
-
     //bottom right part of the kernel is stored at the top left of the padded kernel
     //such that the middle of the kernel is now at position (0,0)
     for (int i = middle_i; i<kernel.rows; i++){

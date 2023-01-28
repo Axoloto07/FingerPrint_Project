@@ -278,47 +278,8 @@ vector<int> img::coord_center(){
 }
 
 
-// //#######################################################################
-// //AN_ISOTROPIC TRANSFORMATIONS TRIES
-// //#######################################################################
-
-
-float img::c_plateau(int i, int j, int a, int b, vector<int> center){
-
-    float sig_i = 100;
-    float sig_j = 60;
-    float beta = 12;
-    float c_plateau = exp(-pow((float)(i-center[0])/sig_i, beta));
-    c_plateau *= exp(-pow((float)abs(j-center[1])/sig_j, beta));
-    return c_plateau;
-}
-
-img img::anisotrop_transf_1(){
-    img res = img(Mat(matrix.rows, matrix.cols, matrix.type())); 
-    //compute the center of the finger
-    vector<int> center = coord_center();
-    //axis lenght of the first ellipse
-    int a = 7*matrix.rows/16;
-    int b = 1*matrix.cols/4;
-    for (int i = 0; i<matrix.rows; i++){
-        for (int j = 0; j<matrix.cols; j++){
-            //application of a first anisotrop gaussian transform on the whole image
-            res.modif_pix(i, j, 255-(255-get_pix_val(i, j))*c_plateau(i,j, a, b, center));
-        }
-    }
-    return res;
-
-}
-
-
-    
-           
-    //(pow((cos(alpha) * (j-center[1]) + sin(alpha)*(i-center[0])) / a, 2) + pow((cos(alpha) * (i-center[0]) + sin(alpha)*(center[1]-j)) / b, 2) <= 1){
-            
-
-
 //#######################################################################
-//GEOMETRICAL OPERATION
+//OPTIMIZATION FOR IMAGE REGISTRATION
 //#######################################################################
 
 
@@ -333,7 +294,7 @@ img img::translation(float tx, float ty){
 }
 
 img img::translation_precize(double tx, double ty){
-// translation of the image more precize than the default one, thanks to double instead of uchar
+// translation of the image more precise than the default one, thanks to double instead of uchar
     int itx = (int)tx;
     int ity = (int)ty;
     double ftx = tx - itx;

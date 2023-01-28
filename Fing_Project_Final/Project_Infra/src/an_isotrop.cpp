@@ -91,6 +91,9 @@ img anisotrop_transf(float alpha, img input){
     //compute the center of pressure of the image
     if (alpha !=0){
         center = {(int)(3.0/4*matrix.rows),(int)(0.7*matrix.cols)};
+        // img fingerprint("../Project_Infra/images/clean_finger.png");
+        // center = fingerprint.coord_center();
+
 
     }
     else{

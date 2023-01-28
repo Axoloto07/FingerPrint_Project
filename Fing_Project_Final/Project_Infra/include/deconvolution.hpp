@@ -4,20 +4,20 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
+//#include <math.h>
 #include <opencv2/opencv.hpp>
 #include "solvers.h"
 #include "stdafx.h"
-#include "convolution.hpp"
+
 
 using namespace cv;
 using namespace std;
 using namespace alglib;
 
+
 //#######################################################################
 //CONVOLUTION - MATRIX METHOD
 //#######################################################################
-
 
 /**
  * @brief create a circulant matrix from a vector containing coefficients
@@ -55,15 +55,15 @@ vector<Mat> list_circulante(Mat &kernel, Mat &input);
  */
 Mat circulate_matrix(vector<Mat> &v, Mat &input);
 
+
 /**
  * @brief compute the convolution between a vectorized input image and a kernel
  * 
  * @param K the convolution matrix
  * @param input_vector the input vectorized image
- * @param kernel the kernel
  * @return the matrix of the blurred image 
  */
-Mat blurr(Mat &K, Mat &input_vector, Mat &kernel);
+Mat blurr(Mat &K, Mat &input_vector);
 
 
 //#######################################################################
@@ -75,7 +75,7 @@ Mat blurr(Mat &K, Mat &input_vector, Mat &kernel);
  * this coefficient is used to have a well posed system
  * 
  * @param doubly_block the convolution matrix K
- * @param lmbda the damping coeff
+ * @param lmbda the damping coefficient
  * @param output the right member of the equation y (corrupted acquisition)
  * @return the result x (clean acquisition)
  */
@@ -88,7 +88,7 @@ Mat least_squares_result(Mat &doubly_block, float lmbda, Mat &output);
 
 
 /**
- * @brief overload to extract and copy a submatrix from a source matrix to a destination matrix
+ * @brief overloading to extract and copy a submatrix from a source matrix to a destination matrix
  * 
  * @param i_begin row of the top left corner of the submatrix
  * @param i_dist nb of rows of the submatrix
@@ -138,23 +138,19 @@ Mat matricise(Mat &input_vector, int output_i, int output_j);
 
 /**
  * @brief convert a dense matrix into a sparse matrix
- * add lmbda*identity matrix at the bottom of the sparse matrix
- * it is to have a well posed linear system
  * 
  * @param m1 the input dense matrix
- * @param lmbda the damping coefficient 
  * @return the sparse matrix 
  */
-sparsematrix matrix_to_sparse(Mat &m1, float lmbda);
+sparsematrix matrix_to_sparse(Mat &m1);
 
 /**
  * @brief transform a matrix into a 1D array
- * add zeros at the bottom of the vector to have a well posed system
+ * 
  * @param m1 the input matrix
- * @param K_cols the nb of zeros to add
  * @return the real 1D array 
  */
-real_1d_array matrix_to_vector_dense(Mat &m1, int K_cols);
+real_1d_array matrix_to_vector_dense(Mat &m1);
 
 /**
  * @brief transform a 1D array into a matrix

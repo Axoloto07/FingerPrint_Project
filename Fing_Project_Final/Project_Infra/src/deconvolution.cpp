@@ -63,7 +63,7 @@ Mat circulate_matrix(vector<Mat> &v, Mat &input){
 }
 
 
-Mat blurr(Mat &K, Mat &input, Mat &kernel){
+Mat blurr(Mat &K, Mat &input){
     //vectorize the input image
     Mat input_vector = vectorise(input);
     //compute the product with the matrix of the convolution built from the kernel
@@ -82,10 +82,9 @@ Mat least_squares_result(Mat &doubly_block, float lmbda, Mat &output){
     //this coefficient is used to have a well posed system
     
     //convert the convolution matrix K to sparse matrix
-    sparsematrix K = matrix_to_sparse(doubly_block, lmbda);
+    sparsematrix K = matrix_to_sparse(doubly_block);
     //convert the right member to dense matrix
-    //real_1d_array output_dense = vector_to_vector_dense(output, doubly_block.cols);
-    real_1d_array output_dense = matrix_to_vector_dense(output, doubly_block.cols);
+    real_1d_array output_dense = matrix_to_vector_dense(output);
     //convert K to the right format for the solver
     sparseconverttocrs(K);
     //create the solver environment
@@ -127,10 +126,10 @@ Mat cut(Mat &m1, int i_suppr_top, int i_suppr_bott, int j_suppr){
         for (int j=j_suppr/2; j<m1.cols - j_suppr/2; j++){
             result.at<float>(i-i_suppr_top,j-j_suppr/2) = m1.at<float>(i,j);
         }
-
     }
     return result;
 }
+
 
 //#######################################################################
 //CONVERSION MATRIX / VECTOR
@@ -151,6 +150,7 @@ Mat vectorise(Mat &picture){
     return image ;
 }
 
+
 Mat matricise(Mat &input_vector, int output_i, int output_j){
     //transform a vector into a matrix
     //fill the matrix row after row
@@ -164,10 +164,9 @@ Mat matricise(Mat &input_vector, int output_i, int output_j){
     return output ;
 }
 
-sparsematrix matrix_to_sparse(Mat &m1, float lmbda){
+sparsematrix matrix_to_sparse(Mat &m1){
     //convert a dense matrix into a sparse matrix
     sparsematrix K;
-    //m1.rows + m1.cols
     sparsecreate(m1.rows, m1.cols, K);
     for (int i=0; i<m1.rows; i++){
         for (int j=0; j<m1.cols; j++){
@@ -176,28 +175,18 @@ sparsematrix matrix_to_sparse(Mat &m1, float lmbda){
             }
         }
     }
-    // //add a multiple of the identity matrix at the bottom of the sparse matrix
-    // for (int i=m1.rows; i<m1.rows + m1.cols; i++){
-    //     sparseset(K, i, i-m1.rows, lmbda);
-    // }
-
     return K;
 }
 
-real_1d_array matrix_to_vector_dense(Mat &m1, int K_cols){
+real_1d_array matrix_to_vector_dense(Mat &m1){
     //transform a matrix into a 1D array
     real_1d_array result;
-    //m1.rows * m1.cols + K_cols
     result.setlength(m1.rows * m1.cols);
     for (int i=0; i<m1.rows; i++){
         for (int j=0; j<m1.cols; j++){
             result[i*m1.cols + j]= m1.at<float>(i, j);
         }
     }
-    // //add zeros at the end of the vector to have a well-posed system
-    // for (int j=m1.rows * m1.cols; j<m1.rows * m1.cols + K_cols ; j++){
-    //     result[j] = 0;
-    // }
     return result;
 }
 
@@ -252,5 +241,5 @@ ostream& operator<<(ostream &o, const real_1d_array &result){
     o<<endl;
     return o;
 }
-
+ 
 

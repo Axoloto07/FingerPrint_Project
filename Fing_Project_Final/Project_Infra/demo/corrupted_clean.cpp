@@ -1,4 +1,5 @@
 #include <iostream>
+#include "../include/convolution.hpp"
 #include "../include/deconvolution.hpp"
 #include "../include/check_convergence.hpp"
 
@@ -57,7 +58,7 @@ int main(){
 
     if(corr){
         //create the corrupted image
-        Mat result = blurr(doubly_block, input_dense, kernel);
+        Mat result = blurr(doubly_block, input_dense);
         //cut the image to have the good dimensions
         Mat result_1 = cut(result, 3,1,4);
 

@@ -11,14 +11,12 @@ Mat kernel_gaussian(float sigma_i, float sigma_j, int size_i, int size_j){
     //create a gaussian blur kernel
     //blurred effect higher in i-direction than in j-direction
     Mat kernel_gauss = Mat::zeros(size_i,size_j,CV_32F);
-    int ker_center_i = size_i/2;
-    int ker_center_j = size_j/2;
     float sum = 0;
     for (int i = 0; i<size_i; i++){
         for (int j = 0; j<size_j; j++){
             //coefficient values follow a gaussian distribution
-            kernel_gauss.at<float>(i, j) = exp(-0.5*pow((float)(i-ker_center_i)/sigma_i, 2));
-            kernel_gauss.at<float>(i, j) *= exp(-0.5*pow((float)(j-ker_center_j)/sigma_j, 2));
+            kernel_gauss.at<float>(i, j) = exp(-0.5*pow((float)(i-size_i/2)/sigma_i, 2));
+            kernel_gauss.at<float>(i, j) *= exp(-0.5*pow((float)(j-size_j/2)/sigma_j, 2));
             sum += kernel_gauss.at<float>(i, j); 
         }
     }
@@ -80,10 +78,6 @@ Mat kernel_pull(int size_i, int size_j, int n, int m, vector<int> center){
     Mat kernel_pull = Mat::zeros(size_i,size_j,CV_32F);
     for (int i = 0; i<size_i; i++){
         kernel_pull.at<float>(i, size_j/2) = size_i - i;
-        //kernel_pull.at<float>(i, size_j/2) = 1;
-
-        //kernel_pull.at<float>(i, size_j/2) = 1;
-        //kernel_pull.at<float>(i, size_j/2) = d_carre;
         sum += kernel_pull.at<float>(i, size_j/2);
 
     }
@@ -103,7 +97,7 @@ Mat kernel_nunif(int size_i, int size_j, vector<int> center, float a, float b, i
 //create a kernel depending on the position of the pixel, that performs a motion blur
 //the kernel tends to the identity kernel for pixels located inside the ellipse of radius a and b
 //it contains only one column of non null coefficients located at the middle of the kernel
-//the energy of the kernel is either preserved (option 'n'), either slighty increasing
+//the energy of the kernel is either preserved (option 'n'), either slightly increasing
     
     Mat kernel_nunif = Mat::zeros(size_i,size_j,CV_32F);
 
@@ -139,7 +133,7 @@ Mat kernel_nunif(int size_i, int size_j, vector<int> center, float a, float b, i
     if(normalize=='n'){
         norm = sum /(1- kernel_nunif.at<float>(size_i/2, size_j/2));
     }
-    //in this case the energy of the kernel is slighty increasing (between 1 and 2)
+    //in this case the energy of the kernel is slightly increasing (between 1 and 2)
     else{
         norm = sum;
     }
@@ -159,7 +153,7 @@ Mat kernel_bottom(int size_i, int size_j, float r, int m1_rows, int m1_cols, int
     
     Mat kernel_bottom = Mat::zeros(size_i,size_j,CV_32F);
 
-    //values to adjust the standard deviations of the gaussian distribution
+    //values to adjust the standard deviations of the Gaussian distribution
     float val_adj_1 = 0.9;
     float val_adj_2 = 0.9;
    
@@ -167,18 +161,16 @@ Mat kernel_bottom(int size_i, int size_j, float r, int m1_rows, int m1_cols, int
 
     for (int i = 0; i<size_i; i++){
         for (int j = 0; j<size_j; j++){
-            //the coeff at the center is gaussian and tends to 1 when the pixel is inside the circle
+            //the coeff at the center is Gaussian and tends to 1 when the pixel is inside the circle
             if(i==size_i/2 && j==size_j/2){
                 kernel_bottom.at<float>(i, j) = exp(-pow((float)val_adj_1*(n-m1_rows/2) / r , 2)) * exp(-pow((float)val_adj_1*(m-m1_cols/2)/r, 2)) * exp(pow(val_adj_1, 2));
-            
             }
             //other coefficients tend to 0 when the pixel is inside the circle
             else{
                 kernel_bottom.at<float>(i, j) = 1 - exp(-pow((float)val_adj_2*(n-m1_rows/2) / r , 2)) * exp(-pow((float)val_adj_2*(m-m1_cols/2)/r, 2)) * exp(pow(val_adj_2, 2));
             }
             sum+=kernel_bottom.at<float>(i, j);
-        }
-            
+        }   
     }
 
     //to have the energy of the kernel equal to and 1
@@ -207,7 +199,7 @@ Mat kernel_energy(vector<int> center, int n, int m, int size_i, int size_j,int m
             sum += kernel_energy.at<float>(i, j);
         }
     }
-    //normalize the kernel sucht that its energy decreases when the distance
+    //normalize the kernel such that its energy decreases when the distance
     //of the pixel from the center increases
     normalize_mat(kernel_energy, (1+val_adj * sqrt(d_carre)) * sum);
     return kernel_energy;
@@ -219,7 +211,7 @@ Mat kernel_energy(vector<int> center, int n, int m, int size_i, int size_j,int m
 //#######################################################################
 
 
-void negative_img(Mat m1){
+void negative_img(Mat &m1){
     //compute the negative version of the image
     for (int j = 0; j<m1.cols; j++){
         for (int i = 0; i<m1.rows; i++){
@@ -228,13 +220,12 @@ void negative_img(Mat m1){
     }
 }
 
-void normalize_mat(Mat m1, float sum){
+void normalize_mat(Mat &m1, float sum){
     //divide every coefficient of the kernel by a given value
     //it is used to preserve the energy of the kernel
     for (int i = 0; i<m1.rows; i++){
-        for (int j = 0; j<m1.cols; j++){
-            
+        for (int j = 0; j<m1.cols; j++){ 
             m1.at<float>(i, j) /= sum; 
         }
     }
-}
+} 

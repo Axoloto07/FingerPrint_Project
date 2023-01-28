@@ -1,12 +1,15 @@
 #ifndef CONVERGENCE_HPP
 #define CONVERGENCE _HPP
 
-#include <iostream>
 #include <string>
-#include <opencv2/opencv.hpp>
 #include "class_image.hpp"
 
 using namespace std;
+
+
+//#######################################################################
+//COMPARISON PIXEL PER PIXEL
+//#######################################################################
 
 /**
  * @brief compute the proportion of matching pixels between two images given a confidence threshold
@@ -18,6 +21,11 @@ using namespace std;
  */
 float convergence(string filename1, string filename2, float threshold);
 
+
+//#######################################################################
+//MEAN SQUARED ERROR
+//#######################################################################
+
 /**
  * @brief compute the mean squared error between two images
  * 
@@ -26,5 +34,18 @@ float convergence(string filename1, string filename2, float threshold);
  * @return the mean squared error 
  */
 float mean_squared_error(string filename1, string filename2);
+
+
+//#######################################################################
+//HISTOGRAM OF GRAY LEVELS
+//#######################################################################
+
+/**
+ * @brief plot the gray level histogram of one input image
+ * 
+ * @param filename the input image
+ */
+void histrogram(string filename);
+
 
 #endif 

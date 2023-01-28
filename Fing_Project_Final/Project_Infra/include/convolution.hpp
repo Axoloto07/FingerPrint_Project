@@ -1,16 +1,15 @@
 #ifndef CONVOLUTION_HPP
 #define CONVOLUTION_HPP
 
-#include <iostream>
 #include <vector>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
 #include "kernel.hpp"
 
-
-
+ 
 using namespace cv;
 using namespace std;
+
 
 //#######################################################################
 //CHECK CONVOLUTION
@@ -26,7 +25,6 @@ using namespace std;
  * if border = 'z', the image will be zero padded
  * @return output filtered matrix 
  */
-
 Mat conv_using_filter(Mat &m1, Mat &kernel, char border);
 
 /**
@@ -68,17 +66,19 @@ float convol_coeff(Mat &m1, Mat &kernel);
 /**
  * @brief compute a kernel for each pixel of the image depending on the position
  * of this pixel in the image
- * pixels located inside an ellipse will be applied an identity kernel
- * compute the convolution of the input image with this changing kernel
+ * (pixels located inside an ellipse will be applied an identity kernel)
+ * compute then the convolution of the input image with this changing kernel
  * @param m1 input image/matrix
- * @param kernel_i width of the kernel
- * @param kernel_j height of the kernel
+ * @param kernel_i nb of rows of the kernel
+ * @param kernel_j nb of columns of the kernel
  * @param center center of high pressure of the finger
  * @param a radius length of the ellipse
  * @param b 
  * @param position position where the filter will be applied
  * if position = 'b' the effect will be mostly on the bottom of the image
  * if position = 't'the effect will be mostly on the top of the image
+ * @param normalized if normalized = 'n', the energy of the kernel applies at the top is preserved,
+ * otherwise it slighty increases
  * @return output filtered matrix 
  */
 Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, float b, char position, char normalize);
@@ -92,8 +92,8 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
  * compute the convolution of the input image with this changing kernel
  * 
  * @param m1 input image/matrix
- * @param kernel_i width of the kernel
- * @param kernel_j height of the kernel
+ * @param kernel_i nb of rows of the kernel
+ * @param kernel_j nb of columns of the kernel
  * @param center center of high pressure of the finger
  * @return output filtered matrix  
  */

@@ -66,7 +66,7 @@ int main(){
     
     if(1){
         cout<<endl<<"Test of sparse matrix : "<<endl;
-        sparsematrix m1 = matrix_to_sparse(input_dense, 2);
+        sparsematrix m1 = matrix_to_sparse(input_dense);
         cout<<"Dense matrix : "<<endl;
         cout<<input_dense<<endl;
         cout<<"Sparse matrix : "<<endl;
@@ -77,7 +77,7 @@ int main(){
     if(1){
         cout<<endl<<"Test of vectorisation/matricisation : "<<endl;
         cout<<"Input : "<<endl<<input_dense<<endl;
-        real_1d_array result = matrix_to_vector_dense(input_dense, 5);
+        real_1d_array result = matrix_to_vector_dense(input_dense);
         real_1d_array verif = "[1, 2, 3, 5, 5, 9, 6, 5, 9]";
         cout<<"Result : "<<result;
         cout<<"Verification : "<<verif;

@@ -2,13 +2,11 @@
 #define CLASS_HPP
 
 
-#include <iostream>
+#include <iostream> 
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include <random>
 #include <stdlib.h>
-#include <cmath>
 #include <map>
 #include <opencv2/opencv.hpp>
 
@@ -18,7 +16,8 @@ using namespace cv;
 
 
 /**
- * @brief 
+ * @brief definition of the class img
+ * contains one attribute (the matrix of pixel intensities)
  * 
  */
 class img{
@@ -142,14 +141,14 @@ class img{
         /**
          * @brief Find the maximum color value in the image
          * 
-         * @return vector<int> = {i_max, j_max, max_val}
+         * @return vector containing the coordinates of the maximal value as well as this value
          */
         vector<int> max();
 
         /**
          * @brief Find the minimum color value of the image
          * 
-         * @return vector<int> = {i_min, j_min, min_val}
+         * @return vector containing the coordinates of the minimal value as well as this value
          */
         vector<int> min();
 
@@ -162,7 +161,7 @@ class img{
          * @brief Create a matrice corresponding to the symmetry with respect
          * to the y axis of the original image
          * 
-         * @return img
+         * @return the transformed image
          */
         img sym_y();
 
@@ -170,7 +169,7 @@ class img{
          * @brief Create a matrice corresponding to the symmetry woth respect
          * to the x axis of the original image
          * 
-         * @return img 
+         * @return the transformed image 
          */
         img sym_x();
 
@@ -178,7 +177,7 @@ class img{
          * @brief Create a matrice corresponding to the symmetry with respect
          * to the diagonal of the original image
          * 
-         * @return img 
+         * @return the transformed image 
          */
         img sym_diag();
 
@@ -186,7 +185,7 @@ class img{
          * @brief Create a matrice corresponding to the symmetry with respect
          * to the other diagonal of the original image
          * 
-         * @return img 
+         * @return the transformed image 
          */
         img sym_diag_inv();
 
@@ -196,21 +195,11 @@ class img{
         //#######################################################################
 
         /**
-         * @brief return the center point of the fingerprint
+         * @brief return the point of high pressure of the fingerprint
          * 
-         * @return vector (i_center,j_center) 
+         * @return vector containing the coordinates of the center 
          */
         vector<int> coord_center();
-
-
-        
-        //#######################################################################
-        //AN_ISOTROPIc TRANSFORMATIONS TRIES
-        //#######################################################################
-
-
-        float c_plateau(int i, int j, int a, int b, vector<int> center);
-        img anisotrop_transf_1();
         
 
         //#######################################################################
@@ -218,22 +207,22 @@ class img{
         //#######################################################################
 
         /**
-         * @brief perform a translation of the image of tx pixel according to the x-axis and ty pixels
+         * @brief perform a translation of the image of tx pixels according to the x-axis and ty pixels
          * according to the y-axis
          * 
          * @param tx  translation along x
          * @param ty  translation along y
-         * @return img 
+         * @return the transformed image 
          */
         img translation(float tx, float ty);
 
         /**
-         * @brief perform a translation of the image of tx pixel according to the x-axis and ty pixels
-         * more precizely than the previous one, used in loss_function_pderivative_x
+         * @brief perform a translation of the image of tx pixels according to the x-axis and ty pixels
+         * more precisely than the previous one, used in loss_function_pderivative_x
          * 
          * @param tx translation along x
          * @param ty translation along y
-         * @return img 
+         * @return the transformed image 
          */
         img translation_precize(double tx, double ty);
 

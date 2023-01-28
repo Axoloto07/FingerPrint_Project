@@ -61,14 +61,14 @@ img isotrop_transf(int p, img input);
 //#######################################################################
 
 /**
- * @brief compute the  anisotrop gaussian transform for one pixel (i,j)
+ * @brief compute the anisotropic gaussian transform for one pixel (i,j)
  * depending on its position wrt a given ellipse
  * 
  * @param i
  * @param j the coordinates of the pixel
  * @param a 
  * @param b the lenght of the axis of the ellipse
- * @param center the center of the finger (and the ellipse) 
+ * @param center the center of pressure of the finger (and the ellipse) 
  *  
  * @return the new value of the pixel obtained after these continuous anisotrop transform 
  */

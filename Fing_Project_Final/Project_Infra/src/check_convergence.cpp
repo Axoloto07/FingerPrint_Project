@@ -1,5 +1,13 @@
+#include <iostream>
+#include <opencv2/opencv.hpp>
+#include "opencv2/imgproc.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgcodecs.hpp"
 #include "../include/check_convergence.hpp"
 
+//#######################################################################
+//COMPARISON PIXEL PER PIXEL
+//#######################################################################
 
 float convergence(string filename1, string filename2, float threshold){
     //load two images
@@ -18,7 +26,7 @@ float convergence(string filename1, string filename2, float threshold){
             for (int j = 0; j<m1.get_cols(); j++){
                 //we fix a confidence threshold 
                 //if the difference between the pixels' intensity (located at the same position in both images)
-                //is lesser than this threshold, we increase the counter
+                //is lower than this threshold, we increase the counter
                 if(abs(m1.get_pix_val(i,j)-m2.get_pix_val(i,j))<=threshold){
                     counter++;
                 }
@@ -41,6 +49,10 @@ float convergence(string filename1, string filename2, float threshold){
     return result;
 }
 
+
+//#######################################################################
+//MEAN SQUARED ERROR
+//#######################################################################
 
 float mean_squared_error(string filename1, string filename2){
     //load two images
@@ -74,4 +86,39 @@ float mean_squared_error(string filename1, string filename2){
     cout<< "Mean squared error : " << sum<<endl;
     cout<<endl;
     return sum;
+}
+
+
+//#######################################################################
+//HISTOGRAM OF GRAY LEVELS
+//#######################################################################
+
+void histrogram(string filename){
+    img fingerprint(filename);
+    Mat input = fingerprint.get_matrix();
+    //define the x axis
+    int histSize = 256;
+    float range[] = {0, 256};
+    const float* histRange[] = {range};
+    bool uniform = true, accumulate = false;
+    Mat g_hist;
+    calcHist(&input, 1, 0, Mat(), g_hist, 1, &histSize, histRange, uniform, accumulate);
+    //set the size of the histogram display
+    int hist_i = 600;
+    int hist_j = 500;
+    Mat histo = Mat::zeros(hist_i, hist_j, CV_8U);
+    int bin_w = cvRound((double) hist_i / histSize);
+    normalize(g_hist, g_hist, 0, histo.rows, NORM_MINMAX, -1, Mat());
+    //plot the histogram
+    for (int i=1; i<histSize; i++){
+        line(histo, Point(bin_w*(i-1), hist_j - cvRound(g_hist.at<float>(i-1))), Point(bin_w*(i), hist_j - cvRound(g_hist.at<float>(i))), Scalar(255,0,0),2,8,0);
+
+    }
+    //save the result into an image
+    img resu = img(histo);
+    size_t pos = filename.find_last_of('/');
+    filename = filename.substr(pos+1);
+    filename = "histogram_" + filename;
+    resu.save(filename);
+    cout<<"The file "<<filename<< " has been created."<<endl;
 }

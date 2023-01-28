@@ -25,9 +25,9 @@ Mat elt_struct_cross_col_row (int size_i, int size_j, string type){
 
 Mat elt_struct_square (int size_i, int size_j){
     //create a squared structuring element
-
     return Mat::ones(size_i,size_j,CV_32F);
 }
+
 
 Mat elt_struct_disc (int size_i, int size_j){
     //create a disc-formed structuring element
@@ -63,10 +63,8 @@ Mat elt_struct_diamond (int size_i, int size_j){
     for (int i=0; i<size_i; i++){
         //at each row, the nb of pixels having value 1 decreases
         for (int j=size_j/2-decal; j<=size_j/2+decal; j++){ 
-                elt_struct.at<float>(i,j) = 1;
-            
+                elt_struct.at<float>(i,j) = 1;          
         }
-
         if(i < size_i/2){
             decal +=pos;
         }
@@ -94,43 +92,5 @@ Mat elt_struct_diag(int size_i, int size_j, string position){
         }
     }
     return elt_struct;
-
 }
 
-Mat elt_struct_hole(int size_i, int size_j){
-    //carre
-    Mat elt_struct = Mat::zeros(size_i,size_j,CV_32F);
-    // for (int i=0; i<size_i; i++){
-    //         elt_struct.at<float>(i,i) = 1;      
-    // }
-    // for (int i=0; i<size_i; i++){
-    //         elt_struct.at<float>(i,size_j-1-i) = 1;      
-    // }
-    // for (int i=0; i<size_i; i++){
-    //             elt_struct.at<float>(i,0) = 1;      
-    // }
-    // for (int j=0; j<size_j; j++){
-    //             elt_struct.at<float>(size_i/2,j) = 1;      
-    // }
-    elt_struct.at<float>(0,0) = 1;   
-    // elt_struct.at<float>(0,1) = 1; 
-    // elt_struct.at<float>(1,0) = 1;  
-    // elt_struct.at<float>(1,1) = 1; 
-
-    elt_struct.at<float>(0,size_j-1) = 1; 
-    // elt_struct.at<float>(0,size_j-2) = 1;  
-    // elt_struct.at<float>(1,size_j-1) = 1; 
-    // elt_struct.at<float>(1,size_j-2) = 1;  
-
-    elt_struct.at<float>(size_i-1,0) = 1; 
-    // elt_struct.at<float>(size_i-2,0) = 1;  
-    // elt_struct.at<float>(size_i-1,1) = 1;    
-    // elt_struct.at<float>(size_i-2,1) = 1;      
-
-    elt_struct.at<float>(size_i-1,size_j-1) = 1; 
-    // elt_struct.at<float>(size_i-2,size_j-1) = 1; 
-    // elt_struct.at<float>(size_i-1,size_j-2) = 1; 
-    // elt_struct.at<float>(size_i-2,size_j-2) = 1;      
-    return elt_struct;
-
-}

@@ -1,3 +1,4 @@
+#include <random>
 #include "../include/optimization.hpp"
 #include "../include/geometrical_op.hpp"
 

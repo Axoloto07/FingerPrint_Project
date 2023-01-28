@@ -52,7 +52,7 @@ int main(){
         verif.save("demo_results/dry_binary.png");
 
         //apply the non uniform erosion to the binarized 'clean_finger'
-        Mat result_ero = erosion_nunif_bin(5,5,binary, 0.45*m1.cols, 3.0/4*m1.cols, center,0.1*m1.rows);
+        Mat result_ero = erosion_nunif_bin(5,5,binary, 0.45*m1.cols, 3.0/4*m1.cols, center);
         convert_negative(result_ero);
 
         //save the result in a new image

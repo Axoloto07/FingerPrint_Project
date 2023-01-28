@@ -1,3 +1,4 @@
+#include <cmath>
 #include "../include/geometrical_op.hpp"
 
 img rotate(img &image,int ci,int cj,float angle){

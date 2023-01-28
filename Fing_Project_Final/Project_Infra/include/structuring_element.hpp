@@ -5,12 +5,12 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
-using namespace std;
+using namespace std; 
+
 
 //#######################################################################
 //LIBRARY OF STRUCTURING ELEMENTS
 //#######################################################################
-
 
 /**
  * @brief create a structuring element with a central cross, or a single row or a single column
@@ -45,6 +45,7 @@ Mat elt_struct_disc (int size_i, int size_j);
 
 /**
  * @brief create an identity structuring element
+ * the center coefficient is only non null coefficient
  * 
  * @param size_i the nb of rows of the kernel
  * @param size_j the nb of columns of the kernel
@@ -74,16 +75,5 @@ Mat elt_struct_diamond (int size_i, int size_j);
  * @return the structuring element  
  */
 Mat elt_struct_diag(int size_i, int size_j, string position);
-
-/**
- * @brief 
- * 
- * @param size_i 
- * @param size_j 
- * @return Mat 
- */
-Mat elt_struct_hole(int size_i, int size_j);
-
-
 
 #endif
