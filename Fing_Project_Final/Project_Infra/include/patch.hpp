@@ -1,10 +1,10 @@
-#ifndef CLASS_PATCH
-#define CLASS_PATCH
+#ifndef PATCH_HPP
+#define PATCH_HPP
 
 
 #include <vector>
 #include <utility>
-#include "class_image.hpp"
+#include "image.hpp"
 
 
 

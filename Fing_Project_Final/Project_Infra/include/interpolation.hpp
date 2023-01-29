@@ -1,7 +1,7 @@
 #ifndef INTERPOLATION_HPP
 #define INTERPOLATION_HPP
 
-#include "class_image.hpp"
+#include "image.hpp"
 
         /**
          * @brief filling the white slots that appeared in the image upon geometric opertions using nearest neighbor interpolation method

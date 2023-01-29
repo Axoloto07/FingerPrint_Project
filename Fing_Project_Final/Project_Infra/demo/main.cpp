@@ -1,6 +1,6 @@
 #include <iostream>
 //using namespace std;
-// #include "class_image.hpp"
+// #include "image.hpp"
 // #include "test_squares.cpp"
 // #include "test_symmetries.cpp"
 // #include "test_convolution.cpp"

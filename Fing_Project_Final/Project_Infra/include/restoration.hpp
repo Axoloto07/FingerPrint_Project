@@ -1,7 +1,7 @@
 #ifndef RESTORATION_HPP
 #define RESTORATION_HPP
 
-#include "class_patch.hpp"
+#include "patch.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

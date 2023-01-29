@@ -1,5 +1,5 @@
-#ifndef CLASS_HPP
-#define CLASS_HPP
+#ifndef IMAGE_HPP
+#define IMAGE_HPP
 
 
 #include <iostream> 

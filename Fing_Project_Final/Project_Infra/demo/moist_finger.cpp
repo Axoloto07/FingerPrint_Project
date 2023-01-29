@@ -1,6 +1,6 @@
 
 #include "../include/morphological.hpp"
-#include "../include/class_image.hpp"
+#include "../include/image.hpp"
 #include "../include/check_convergence.hpp"
 
 

@@ -1,7 +1,7 @@
 #ifndef GEOMETRICAL_OP_HPP
 #define GEOMETRICAL_OP_HPP
 
-#include "class_image.hpp"
+#include "image.hpp"
 
         /**
          * @brief perform a rotation

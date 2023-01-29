@@ -1,10 +1,9 @@
-#ifndef DECONVOLUTION_1_HPP
-#define DECONVOLUTION_1_HPP
+#ifndef DECONVOLUTION_HPP
+#define DECONVOLUTION_HPP
 
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
-//#include <math.h>
 #include <opencv2/opencv.hpp>
 #include "solvers.h"
 #include "stdafx.h"

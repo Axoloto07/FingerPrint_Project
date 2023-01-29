@@ -2,7 +2,7 @@
 #define CONVERGENCE _HPP
 
 #include <string>
-#include "class_image.hpp"
+#include "image.hpp"
 
 using namespace std;
 

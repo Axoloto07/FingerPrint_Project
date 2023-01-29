@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <opencv2/opencv.hpp>
-#include "class_image.hpp"
+#include "image.hpp"
 using namespace std;
 using namespace cv;
 

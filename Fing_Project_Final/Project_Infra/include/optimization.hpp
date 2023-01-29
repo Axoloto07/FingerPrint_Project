@@ -1,7 +1,7 @@
 #ifndef _OPTIMIZATION_HPP_
 #define _OPTIMIZATION_HPP_
 
-#include "class_image.hpp"
+#include "image.hpp"
 
 
 //---------------- loss functions ----------------

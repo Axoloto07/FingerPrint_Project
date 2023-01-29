@@ -1,4 +1,4 @@
-#include "../include/class_image.hpp"
+#include "../include/image.hpp"
 
 
 //function to test all the symmetries for an image already chosen

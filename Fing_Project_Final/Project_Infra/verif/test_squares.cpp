@@ -1,4 +1,4 @@
-#include "../include/class_image.hpp"
+#include "../include/image.hpp"
 
 
 //function test to draw squares on the image

@@ -1,4 +1,4 @@
-#include "../include/class_image.hpp"
+#include "../include/image.hpp"
 
 //function to test the rotation of an image
 void test_rotation(){
