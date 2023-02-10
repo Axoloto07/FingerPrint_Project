@@ -5,7 +5,7 @@
 //test the an/isotropic transformations of the fingerprint
 int main(){
 
-    cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<endl;
+    std::cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<std::endl;
 
     img fingerprint("../Project_Infra/images/clean_finger.png");
 

@@ -3,7 +3,7 @@
 #include "../include/convolution.hpp"
 #include "../include/check_convergence.hpp"
 
-using namespace std;
+//using namespace std;
 
 
 //fonction to create the blurred finger
@@ -12,9 +12,9 @@ int main(){
 //#######################################################################
 //GET THE INPUTS
 //#######################################################################  
-        cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<endl;
-        string path;
-        cin>>path;
+        std::cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<std::endl;
+        std::string path;
+        std::cin>>path;
         img fingerprint("../Project_Infra/images/" + path);
         //conversion to float
         img tmp = fingerprint.cast_to_float();
@@ -23,11 +23,11 @@ int main(){
 
         //choose the option to run
         bool non_norm;
-        cout<<"Do you want the version with injection of energy? (enter 1 for yes, 0 for no)"<<endl;
-        cin>>non_norm;
+        std::cout<<"Do you want the version with injection of energy? (enter 1 for yes, 0 for no)"<<std::endl;
+        std::cin>>non_norm;
         bool norm;
-        cout<<"Do you want the version with conservation of energy? (enter 1 for yes, 0 for no)"<<endl;
-        cin>>norm;
+        std::cout<<"Do you want the version with conservation of energy? (enter 1 for yes, 0 for no)"<<std::endl;
+        std::cin>>norm;
 
 //#######################################################################
 //LOAD PARAMETERS
@@ -36,7 +36,7 @@ int main(){
         float a = (float) (1*m1.rows)/8;
         float b = (float) (8*m1.cols)/32;
 
-        vector<int> center = fingerprint.coord_center();
+        std::vector<int> center = fingerprint.coord_center();
 
 
 //#######################################################################

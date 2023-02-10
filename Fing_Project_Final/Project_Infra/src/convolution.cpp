@@ -123,7 +123,7 @@ float convol_coeff(Mat &m1, Mat &kernel_flip){
 
 }
 
-Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, float b, char position, char normalize){
+Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, std::vector<int> center, float a, float b, char position, char normalize){
     //we suppose the filter is of odd dimensions
     //we replicate the image for the border
     Mat tmp;
@@ -166,7 +166,7 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
     return result;
 }
 
-Mat convol_energy(Mat &m1, int kernel_i, int kernel_j, vector<int> center){
+Mat convol_energy(Mat &m1, int kernel_i, int kernel_j, std::vector<int> center){
     //we suppose the filter is of odd dimensions
     //we add zeros to the matrix m1 to adapt to the filter
     Mat tmp = padd_center(m1, kernel_i, kernel_j);

@@ -10,7 +10,7 @@
 
 
 using namespace cv;
-using namespace std;
+//using namespace std;
 using namespace alglib;
 
 
@@ -38,7 +38,7 @@ Mat circulate_coeff(Mat &kernel_ligne, Mat &input);
  * 
  * @return a vector containing circulant matrices (one for each kernel row)
  */
-vector<Mat> list_circulante(Mat &kernel, Mat &input);
+std::vector<Mat> list_circulante(Mat &kernel, Mat &input);
 
 
 /**
@@ -52,7 +52,7 @@ vector<Mat> list_circulante(Mat &kernel, Mat &input);
  * @return the doubly block circulant matrix, which is the matrix
  * of the convolution between the kernel and the input image 
  */
-Mat circulate_matrix(vector<Mat> &v, Mat &input);
+Mat circulate_matrix(std::vector<Mat> &v, Mat &input);
 
 
 /**
@@ -181,7 +181,7 @@ void print_sparse(sparsematrix &m1);
  * @param v the vector to print out
  * @return the ostream string 
  */
-ostream & operator<<(ostream &o, const vector<Mat> &v);
+std::ostream & operator<<(std::ostream &o, const std::vector<Mat> &v);
 
 /**
  * @brief overloading of the operator << to print the content of a 1D array
@@ -190,7 +190,7 @@ ostream & operator<<(ostream &o, const vector<Mat> &v);
  * @param result the array to print out
  * @return the ostream string 
  */
-ostream& operator<<(ostream &o, const real_1d_array &result);
+std::ostream& operator<<(std::ostream &o, const real_1d_array &result);
 
 
 

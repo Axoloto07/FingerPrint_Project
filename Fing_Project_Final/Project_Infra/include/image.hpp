@@ -11,7 +11,7 @@
 #include <opencv2/opencv.hpp>
 
 
-using namespace std;
+//using namespace std;
 using namespace cv;
 
 
@@ -21,7 +21,7 @@ using namespace cv;
  * 
  */
 class img{
-    friend ostream &operator<<(ostream &o, const img &image);
+    friend std::ostream &operator<<(std::ostream &o, const img &image);
     protected:
         Mat matrix;
 
@@ -36,7 +36,7 @@ class img{
          * 
          * @param filename 
          */
-        img(string filename);
+        img(std::string filename);
 
         /**
          * @brief Construct a new img object from a Mat
@@ -60,7 +60,7 @@ class img{
          * 
          * @param filename 
          */
-        void save(string filename);
+        void save(std::string filename);
 
 
         //#######################################################################
@@ -143,14 +143,14 @@ class img{
          * 
          * @return vector containing the coordinates of the maximal value as well as this value
          */
-        vector<int> max();
+        std::vector<int> max();
 
         /**
          * @brief Find the minimum color value of the image
          * 
          * @return vector containing the coordinates of the minimal value as well as this value
          */
-        vector<int> min();
+        std::vector<int> min();
 
 
         //#######################################################################
@@ -199,7 +199,7 @@ class img{
          * 
          * @return vector containing the coordinates of the center 
          */
-        vector<int> coord_center();
+        std::vector<int> coord_center();
         
 
         //#######################################################################

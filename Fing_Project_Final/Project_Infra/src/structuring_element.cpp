@@ -4,7 +4,7 @@
 //LIBRARY OF STRUCTURING ELEMENTS
 //#######################################################################
 
-Mat elt_struct_cross_col_row (int size_i, int size_j, string type){
+Mat elt_struct_cross_col_row (int size_i, int size_j, std::string type){
     //create a structuring element with a central cross, or a single row or a single column
 
     Mat elt_struct = Mat::zeros(size_i,size_j,CV_32F);
@@ -75,7 +75,7 @@ Mat elt_struct_diamond (int size_i, int size_j){
     return elt_struct;
 }
 
-Mat elt_struct_diag(int size_i, int size_j, string position){
+Mat elt_struct_diag(int size_i, int size_j, std::string position){
     //create a structuring element with a diagonal of ones
     //the dimensions should be equal
     Mat elt_struct = Mat::zeros(size_i,size_j,CV_32F);

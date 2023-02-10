@@ -5,7 +5,7 @@
 
 //fonction to test the morphological filtering
 int main(){
-    cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<endl;
+    std::cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<std::endl;
 
 //#######################################################################
 //GET THE INPUTS
@@ -14,7 +14,7 @@ int main(){
     img fingerprint("../Project_Infra/images/clean_finger.png");
     img tmp = fingerprint.cast_to_float();
     Mat m1 = tmp.get_matrix();
-    vector<int> center = fingerprint.coord_center();
+    std::vector<int> center = fingerprint.coord_center();
     Mat elt_structure;
     Mat result;
     img test;
@@ -23,7 +23,7 @@ int main(){
 //BINARISATION OF THE INPUT
 //#######################################################################
 
-    vector<float> proba = proba_distr(m1);
+    std::vector<float> proba = proba_distr(m1);
     float threshold = find_threshold(proba);
     Mat bin = binarization(m1,threshold);
 

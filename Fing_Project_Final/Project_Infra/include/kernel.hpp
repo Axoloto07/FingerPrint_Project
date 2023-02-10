@@ -5,7 +5,7 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
-using namespace std;
+//using namespace std;
 
 //#######################################################################
 //LIBRARY OF CONVOLUTION KERNELS
@@ -63,7 +63,7 @@ Mat kernel_id_light_dark(int size_i, int size_j, float value);
  * @param center the center of the highest pressure of the finger 
  * @return the non uniform pull kernel 
  */
-Mat kernel_pull(int size_i, int size_j, int n, int m, vector<int> center);
+Mat kernel_pull(int size_i, int size_j, int n, int m, std::vector<int> center);
 
 
 //#######################################################################
@@ -86,7 +86,7 @@ Mat kernel_pull(int size_i, int size_j, int n, int m, vector<int> center);
  * it slightly increases
  * @return the kernel 
  */
-Mat kernel_nunif(int size_i, int size_j, vector<int> center, float a, float b, int n, int m, char normalize);
+Mat kernel_nunif(int size_i, int size_j, std::vector<int> center, float a, float b, int n, int m, char normalize);
 
 /**
  * @brief create a kernel for each pixel depending on its position in the input image.
@@ -117,7 +117,7 @@ Mat kernel_bottom(int size_i, int size_j, float r, int m1_rows, int m1_cols, int
  * @param m1_cols nb of columns of the input matrix
  * @return the kernel 
  */
-Mat kernel_energy(vector<int> center, int n, int m, int size_i, int size_j, int m1_rows, int m1_cols);
+Mat kernel_energy(std::vector<int> center, int n, int m, int size_i, int size_j, int m1_rows, int m1_cols);
 
 
 //#######################################################################

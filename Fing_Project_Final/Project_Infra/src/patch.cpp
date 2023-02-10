@@ -22,7 +22,7 @@ int mask::size_vect(){
 }
 
 
-pair<int, int> mask::get_val(int pos){
+std::pair<int, int> mask::get_val(int pos){
 
    return vect_coord[pos];
 

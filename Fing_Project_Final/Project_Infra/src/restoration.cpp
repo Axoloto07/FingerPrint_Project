@@ -2,13 +2,13 @@
 
 //----------------Restoration---------------------
 
-map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size){
+std::map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size){
 
     // Initializing the random seed
     srand (time(NULL));
 
     // Initializing an empty dictionary
-    map<int, patch> dico = {};
+    std::map<int, patch> dico = {};
 
     // Looping on nb_patch
     for (int k = 0; k < nb_patch; k++){
@@ -45,7 +45,7 @@ map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size){
 
 
 
-int best_patch(patch p, patch p_mask, map<int, patch> dico){
+int best_patch(patch p, patch p_mask, std::map<int, patch> dico){
 
     // Initialization of minimum distance to perform a minimum search algorithm
     double min_dist = 1.0;
@@ -53,7 +53,7 @@ int best_patch(patch p, patch p_mask, map<int, patch> dico){
     int best_pix = 0;
 
     // Iterating on all the entry of the dictionary
-    for(map<int, patch>::iterator i=dico.begin(); i!=dico.end(); i++){
+    for(std::map<int, patch>::iterator i=dico.begin(); i!=dico.end(); i++){
 
         // Compute the distance
         dist = p.dist((i->second).mult(p_mask));
@@ -77,8 +77,8 @@ int best_patch(patch p, patch p_mask, map<int, patch> dico){
 void restor_line(img &image, mask &mask_o, int nb_patch, int size){
 
     // Creating the comparison dictionary
-    map<int, patch> dic = dic_patch(image, mask_o, nb_patch, size);
-    cout<<"[Dictionnary successfully created]"<<endl;
+    std::map<int, patch> dic = dic_patch(image, mask_o, nb_patch, size);
+    std::cout<<"[Dictionnary successfully created]"<<std::endl;
 
     // Iterating on the pixel of the mask
     for (int i=0; i<mask_o.size_vect(); i++){

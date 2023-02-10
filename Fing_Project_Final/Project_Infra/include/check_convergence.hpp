@@ -4,7 +4,7 @@
 #include <string>
 #include "image.hpp"
 
-using namespace std;
+//using namespace std;
 
 
 //#######################################################################
@@ -19,7 +19,7 @@ using namespace std;
  * @param threshold confidence threshold
  * @return proportion of "closed" pixels between both images 
  */
-float convergence(string filename1, string filename2, float threshold);
+float convergence(std::string filename1, std::string filename2, float threshold);
 
 
 //#######################################################################
@@ -33,7 +33,7 @@ float convergence(string filename1, string filename2, float threshold);
  * @param filename2 the second image
  * @return the mean squared error 
  */
-float mean_squared_error(string filename1, string filename2);
+float mean_squared_error(std::string filename1, std::string filename2);
 
 
 //#######################################################################
@@ -47,7 +47,7 @@ float mean_squared_error(string filename1, string filename2);
  * @param filename2 the input image
  * @param directory_output the directory to store the output
  */
-void histogram(string filename1, string filename2, string directory_output);
+void histogram(std::string filename1, std::string filename2, std::string directory_output);
 
 
 #endif 

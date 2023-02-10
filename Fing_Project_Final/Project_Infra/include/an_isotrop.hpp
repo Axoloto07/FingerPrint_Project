@@ -4,7 +4,7 @@
 #include <vector>
 #include <opencv2/opencv.hpp>
 #include "image.hpp"
-using namespace std;
+//using namespace std;
 using namespace cv;
 
 //#######################################################################
@@ -72,7 +72,7 @@ img isotrop_transf(int p, img input);
  *  
  * @return the new value of the pixel obtained after these continuous anisotrop transform 
  */
-float c_i_j(int i, int j, int a, int b, vector<int> center, Mat matrix);
+float c_i_j(int i, int j, int a, int b, std::vector<int> center, Mat matrix);
 
 /**
  * @brief perform the anisotrop gaussian transform on the whole finger given a direction alpha

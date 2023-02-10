@@ -8,7 +8,7 @@
 
  
 using namespace cv;
-using namespace std;
+//using namespace std;
 
 
 //#######################################################################
@@ -81,7 +81,7 @@ float convol_coeff(Mat &m1, Mat &kernel);
  * otherwise it slighty increases
  * @return output filtered matrix 
  */
-Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, float b, char position, char normalize);
+Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, std::vector<int> center, float a, float b, char position, char normalize);
 
 
 /**
@@ -97,7 +97,7 @@ Mat conv_x_y(Mat &m1, int kernel_i, int kernel_j, vector<int> center, float a, f
  * @param center center of high pressure of the finger
  * @return output filtered matrix  
  */
-Mat convol_energy(Mat &m1, int kernel_i, int kernel_j, vector<int> center);
+Mat convol_energy(Mat &m1, int kernel_i, int kernel_j, std::vector<int> center);
 
 
 //#######################################################################

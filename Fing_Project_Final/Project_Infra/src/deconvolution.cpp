@@ -24,9 +24,9 @@ Mat circulate_coeff(Mat &kernel_ligne, Mat &input){
 }
 
 
-vector<Mat> list_circulante(Mat &kernel, Mat &input){
+std::vector<Mat> list_circulante(Mat &kernel, Mat &input){
     //create a vector containing the circulant matrices created for each row of the kernel
-    vector<Mat> v;
+    std::vector<Mat> v;
     for (int i=0; i<kernel.rows; i++){
         //we take and copy a row of the kernel
         Rect rect(0, i, kernel.cols, 1);
@@ -39,7 +39,7 @@ vector<Mat> list_circulante(Mat &kernel, Mat &input){
     return v;
 }
 
-Mat circulate_matrix(vector<Mat> &v, Mat &input){
+Mat circulate_matrix(std::vector<Mat> &v, Mat &input){
     //create a doubly block circulant matrix from a list of matrices stored in vector v
     //each column/row of this matrix contains smaller matrices from vector v
     //the block-dimensions of this circulant matrix is equal to those of the input matrix
@@ -216,29 +216,29 @@ void print_sparse(sparsematrix &m1){
     real_1d_array result;
     for (ae_int_t i = 0; i<nb_rows; i++){
         sparsegetrow(m1, i, result);
-        cout<<result;
+        std::cout<<result;
 
     }
     
 }
 
-ostream & operator<<(ostream &o, const vector<Mat> &v){
+std::ostream & operator<<(std::ostream &o, const std::vector<Mat> &v){
     //overloading of operator <<
     //print out the content of a vector of matrices
     for (int i = 0; i<v.size(); i++){
-        o<<v[i]<<endl;
+        o<<v[i]<<std::endl;
     }
-    o<<endl;
+    o<<std::endl;
     return o;
 }
 
-ostream& operator<<(ostream &o, const real_1d_array &result){
+std::ostream& operator<<(std::ostream &o, const real_1d_array &result){
     //overload of the operator <<
     //to print the content of a 1D array
     for (int i = 0; i<result.length(); i++){
         o<<result[i]<<" ";
     }
-    o<<endl;
+    o<<std::endl;
     return o;
 }
  

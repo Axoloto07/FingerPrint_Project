@@ -15,7 +15,7 @@
  * @param size The size of the patches to sample
  * @return map<int, patch> A dictionary with int as the key and patches as a object
  */
-map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size);
+std::map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size);
 
 /**
  * @brief Find the patch that minimize the distance to p among a dictionnary
@@ -24,7 +24,7 @@ map<int, patch> dic_patch(img &image, mask &mask_o, int nb_patch,  int size);
  * @param dico The dictionary among wich we want to find the patche minimizing the distance
  * @return int The value of the middle pixel of the best patch
  */
-int best_patch(patch p, patch m, map<int, patch> dico);
+int best_patch(patch p, patch m, std::map<int, patch> dico);
 
 /**
  * @brief Performe a restoration of an image with missing pixels

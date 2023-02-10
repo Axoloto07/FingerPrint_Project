@@ -5,7 +5,7 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
-using namespace std; 
+//using namespace std; 
 
 
 //#######################################################################
@@ -22,7 +22,7 @@ using namespace std;
  * 
  * @return the structuring element 
  */
-Mat elt_struct_cross_col_row (int size_i, int size_j, string type);
+Mat elt_struct_cross_col_row (int size_i, int size_j, std::string type);
 
 /**
  * @brief create a squared structuring element
@@ -74,6 +74,6 @@ Mat elt_struct_diamond (int size_i, int size_j);
  * @param position the sense of the diagonal
  * @return the structuring element  
  */
-Mat elt_struct_diag(int size_i, int size_j, string position);
+Mat elt_struct_diag(int size_i, int size_j, std::string position);
 
 #endif

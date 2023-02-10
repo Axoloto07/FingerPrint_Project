@@ -67,7 +67,7 @@ Mat kernel_id_light_dark(int size_i, int size_j, float value){
     return kernel_lighten;
 }
 
-Mat kernel_pull(int size_i, int size_j, int n, int m, vector<int> center){
+Mat kernel_pull(int size_i, int size_j, int n, int m, std::vector<int> center){
     //create a motion blur kernel of size size_i*size_j
     //with only one non null column
     //the coefficents can depend on the position of the pixels in the input image
@@ -93,7 +93,7 @@ Mat kernel_pull(int size_i, int size_j, int n, int m, vector<int> center){
 //#######################################################################
 
 
-Mat kernel_nunif(int size_i, int size_j, vector<int> center, float a, float b, int n, int m, char normalize){
+Mat kernel_nunif(int size_i, int size_j, std::vector<int> center, float a, float b, int n, int m, char normalize){
 //create a kernel depending on the position of the pixel, that performs a motion blur
 //the kernel tends to the identity kernel for pixels located inside the ellipse of radius a and b
 //it contains only one column of non null coefficients located at the middle of the kernel
@@ -180,7 +180,7 @@ Mat kernel_bottom(int size_i, int size_j, float r, int m1_rows, int m1_cols, int
 }
 
 
-Mat kernel_energy(vector<int> center, int n, int m, int size_i, int size_j,int m1_rows, int m1_cols){
+Mat kernel_energy(std::vector<int> center, int n, int m, int size_i, int size_j,int m1_rows, int m1_cols){
     //create a kernel depending on the position of the pixel in the image
     //it tends to the identity kernel when the pixel gets closer to the center of the finger
     //the energy of the kernel decreases quadratically when the pixel gets far from the center

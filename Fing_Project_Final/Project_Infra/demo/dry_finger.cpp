@@ -11,22 +11,22 @@ int main(){
 //GET THE INPUTS
 //####################################################################### 
 
-    cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<endl;
-    string path;
-    cin>>path;
+    std::cout<<"Please enter the name of the image. (ex : clean_finger.png)"<<std::endl;
+    std::string path;
+    std::cin>>path;
     img fingerprint("../Project_Infra/images/" + path);
     img tmp = fingerprint.cast_to_float();
     Mat m1 = tmp.get_matrix();
 
-    vector<int> center = fingerprint.coord_center();
+    std::vector<int> center = fingerprint.coord_center();
 
     //choose the option to run
     bool bin;
-    cout<<"Do you want the binary version? (enter 1 for yes, 0 for no)"<<endl;
-    cin>>bin;
+    std::cout<<"Do you want the binary version? (enter 1 for yes, 0 for no)"<<std::endl;
+    std::cin>>bin;
     bool gray;
-    cout<<"Do you want the grayscale version? (enter 1 for yes, 0 for no)"<<endl;
-    cin>>gray;
+    std::cout<<"Do you want the grayscale version? (enter 1 for yes, 0 for no)"<<std::endl;
+    std::cin>>gray;
 
 //#######################################################################
 //NON UNIFORM EROSION WITH BINARY IMAGES
@@ -35,7 +35,7 @@ int main(){
     if(bin){
 
         //binarization of the clean finger
-        vector<float> proba = proba_distr(m1);
+        std::vector<float> proba = proba_distr(m1);
         float threshold = find_threshold(proba);
         Mat binary = binarization(m1,threshold);
 

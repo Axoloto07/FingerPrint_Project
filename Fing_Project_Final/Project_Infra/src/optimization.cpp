@@ -45,8 +45,8 @@ float find_min_x(img i1, img i2, float b1, float b2, float min, float pmin){
         min = find_min_x(i1, i2, b1_, b2_, min, pmin);
     }
     else{
-        cout << "min_final = " << min << endl;
-        cout << "pmin_final = " << pmin << endl;
+        std::cout << "min_final = " << min << std::endl;
+        std::cout << "pmin_final = " << pmin << std::endl;
     }
 }
 
@@ -54,7 +54,7 @@ float find_min_xy(img i1, img i2, float bi1, float bi2, float bj1, float bj2, fl
     for (float j=bj1; j<bj2; j+=(bj2-bj1)/1000) {
         for (float i=bi1; i<bi2; i+=(bi2-bi1)/1000){
             float y = loss_function(i1, i2, j, i);
-            //cout << "y = " << y << endl;
+            //cout << "y = " << y << std::endl;
             if (y<min){
                 min = y;
                 pminj = j;
@@ -67,15 +67,15 @@ float find_min_xy(img i1, img i2, float bi1, float bi2, float bj1, float bj2, fl
         float bi2_ = pmini + (bi2-bi1)/4;
         float bj1_ = pminj - (bj2-bj1)/4;
         float bj2_ = pminj + (bj2-bj1)/4;
-        cout << "min = " << min << endl;
-        cout << "pmini = " << pmini << endl;
-        cout << "pminj = " << pminj << endl;
+        std::cout << "min = " << min << std::endl;
+        std::cout << "pmini = " << pmini << std::endl;
+        std::cout << "pminj = " << pminj << std::endl;
         min = find_min_xy(i1, i2, bi1_, bi2_, bj1_, bj2_, min, pmini, pminj);
     }
     else{
-        cout << "min_final = " << min << endl;
-        cout << "pmini_final = " << pmini << endl;
-        cout << "pminj_final = " << pminj << endl;
+        std::cout << "min_final = " << min << std::endl;
+        std::cout << "pmini_final = " << pmini << std::endl;
+        std::cout << "pminj_final = " << pminj << std::endl;
         return min;
     }
     return min;
@@ -87,7 +87,7 @@ float find_min_xytheta(img i1, img i2, float bi1, float bi2, float bj1, float bj
         for (float i=bi1; i<bi2; i+=(bi2-bi1)/1000){
             for (float theta=bt1; theta<bt2; theta+=(bt2-bt1)/10){
                 float y = loss_function(i1, i2, j, i, theta);
-                cout << "y = " << y << endl;
+                std::cout << "y = " << y << std::endl;
                 if (y<min){
                     min = y;
                     pminj = j;
@@ -104,16 +104,16 @@ float find_min_xytheta(img i1, img i2, float bi1, float bi2, float bj1, float bj
         float bj2_ = pminj + (bj2-bj1)/4;
         float bt1_ = ptheta - (bt2-bt1)/4;
         float bt2_ = ptheta + (bt2-bt1)/4;
-        cout << "min = " << min << endl;
-        cout << "pmini = " << pmini << endl;
-        cout << "pminj = " << pminj << endl;
-        cout << "ptheta = " << ptheta << endl;
+        std::cout << "min = " << min << std::endl;
+        std::cout << "pmini = " << pmini << std::endl;
+        std::cout << "pminj = " << pminj << std::endl;
+        std::cout << "ptheta = " << ptheta << std::endl;
         min = find_min_xy(i1, i2, bi1_, bi2_, bj1_, bj2_, min, pmini, pminj);
     }
     else{
-        cout << "min_final = " << min << endl;
-        cout << "pmini_final = " << pmini << endl;
-        cout << "pminj_final = " << pminj << endl;
+        std::cout << "min_final = " << min << std::endl;
+        std::cout << "pmini_final = " << pmini << std::endl;
+        std::cout << "pminj_final = " << pminj << std::endl;
         return min;
     }
     return min;
@@ -231,8 +231,8 @@ void draw_loss_function_x(img i1, img i2, double b1, double b2, int a){
                 }
                 fprintf(gnuplotPipe, "%f %f\n", j, y);
             }
-            cout << "valeur min "<< min <<endl;
-            cout << "position min "<< pmin <<endl;
+            std::cout << "valeur min "<< min <<std::endl;
+            std::cout << "position min "<< pmin <<std::endl;
             break;
         case 1:
             for (int j=b1; j<=b2; j+=(b2-b1)/1000) {
@@ -243,8 +243,8 @@ void draw_loss_function_x(img i1, img i2, double b1, double b2, int a){
                 }
                 fprintf(gnuplotPipe, "%d %f\n", j, y);
             }
-            cout << "valeur max "<< max <<endl;
-            cout << "position max "<< pmax <<endl;
+            std::cout << "valeur max "<< max <<std::endl;
+            std::cout << "position max "<< pmax <<std::endl;
             break;
     }
     fprintf(gnuplotPipe, "e\n");
@@ -300,8 +300,8 @@ void draw_loss_function_xy(img i1, img i2, int a){
                     fprintf(gnuplotPipe, "%f %f %f\n", j, i, y);
                 }
             }
-            cout << "value min "<< min << endl;
-            cout << "position min i: "<< pmini << " j: " << pminj << endl;
+            std::cout << "value min "<< min << std::endl;
+            std::cout << "position min i: "<< pmini << " j: " << pminj << std::endl;
             break;
         case 1:
             
@@ -316,8 +316,8 @@ void draw_loss_function_xy(img i1, img i2, int a){
                     fprintf(gnuplotPipe, "%d %d %f\n", j, i, y);
                 }
             }
-            cout << "value max "<< max << endl;
-            cout << "position max i: "<< pmaxi << " j: " << pmaxj << endl;
+            std::cout << "value max "<< max << std::endl;
+            std::cout << "position max i: "<< pmaxi << " j: " << pmaxj << std::endl;
             break;
     }
     fprintf(gnuplotPipe, "e\n");
@@ -359,9 +359,9 @@ void display_loss_function_xytheta(img i1, img i2, int a){
                     }
                 }
             }
-            cout << "valeur min "<< min << endl;
-            cout << "position min i: "<< pmini << " j: " << pminj << " theta: " << thetamin << endl;
-            cout << "theta min " << thetamin << endl;
+            std::cout << "valeur min "<< min << std::endl;
+            std::cout << "position min i: "<< pmini << " j: " << pminj << " theta: " << thetamin << std::endl;
+            std::cout << "theta min " << thetamin << std::endl;
             break;
         case 1:
             for (int i=-10; i<=10; i+=1) {
@@ -377,9 +377,9 @@ void display_loss_function_xytheta(img i1, img i2, int a){
                     }
                 }
             }
-            cout << "valeur max "<< max << endl;
-            cout << "position max i: "<< pmaxi << " j: " << pmaxj << " theta: " << thetamax << endl;
-            cout << "theta max " << thetamax << endl;
+            std::cout << "valeur max "<< max << std::endl;
+            std::cout << "position max i: "<< pmaxi << " j: " << pmaxj << " theta: " << thetamax << std::endl;
+            std::cout << "theta max " << thetamax << std::endl;
             break;
     }
 }
@@ -454,7 +454,7 @@ void draw_convergence(img i1, img i2, float al){
     std::vector<float> *list_al = new std::vector<float>;
     float p_res[2];
     coord_descent(i1, i2, pi, pj, al, list_al, p_res, cpt);
-    cout << "final result coord descent : pi " << p_res[0] << ", pj  " << p_res[1] << endl;
+    std::cout << "final result coord descent : pi " << p_res[0] << ", pj  " << p_res[1] << std::endl;
     FILE * gnuplotPipe = popen ("gnuplot -persistent", "w");
     fprintf(gnuplotPipe, "plot '-' with lines\n");
     for (int i=0; i<list_al->size(); i++){
@@ -483,7 +483,7 @@ void result_conv(img i1, img i2, float al){
         float p_res[2];
         coord_descent_2(i1, i2, pi, pj, al, p_res, cpt);
         list_p->push_back(p_res);
-        cout << "final result coord descent : pi " << p_res[0] << ", pj  " << p_res[1] << endl;
+        std::cout << "final result coord descent : pi " << p_res[0] << ", pj  " << p_res[1] << std::endl;
     }
     delete list_p;
 }
@@ -526,7 +526,7 @@ void grad_descent_2_x(img i1, img i2, double pi, double pj, double al, double *p
     int m = i1.get_cols();
     double eps = 1000;
     // the algorithm
-    cout << "p le debut " << p[0] << " "<<p[1] <<endl;
+    std::cout << "p le debut " << p[0] << " "<<p[1] <<std::endl;
     int cpt = 0;
     double k = 0.5; // variation rate/2
     for (int i=0; i<1000; i++){
@@ -543,7 +543,7 @@ void grad_descent_2_x(img i1, img i2, double pi, double pj, double al, double *p
             else{
                 p_res[1] = p[1] + k;
             }
-            cout << "cpt " << cpt << endl;
+            std::cout << "cpt " << cpt << std::endl;
             return;
         }
     }
@@ -553,7 +553,7 @@ void grad_descent_2_x(img i1, img i2, double pi, double pj, double al, double *p
     else{
         p_res[1] = p[1] + k;
     }
-    cout << "cpt " << cpt << endl;
+    std::cout << "cpt " << cpt << std::endl;
 }
 
 void grad_descent_2_y(img i1, img i2, double pi, double pj, double al, double *p_res){
@@ -563,7 +563,7 @@ void grad_descent_2_y(img i1, img i2, double pi, double pj, double al, double *p
     int m = i1.get_cols();
     double eps = 1000;
     // the algorithm
-    cout << "p le debut " << p[0] << " "<<p[1] <<endl;
+    std::cout << "p le debut " << p[0] << " "<<p[1] <<std::endl;
     int cpt = 0;
     double k = 0.5; // variation rate/2
     for (int i=0; i<1000; i++){
@@ -580,7 +580,7 @@ void grad_descent_2_y(img i1, img i2, double pi, double pj, double al, double *p
             else{
                 p_res[0] = p[0] + k;
             }
-            cout << "cpt " << cpt << endl;
+            std::cout << "cpt " << cpt << std::endl;
             return;
         }
     }
@@ -590,7 +590,7 @@ void grad_descent_2_y(img i1, img i2, double pi, double pj, double al, double *p
     else{
         p_res[0] = p[0] + k;
     }
-    cout << "cpt " << cpt << endl;
+    std::cout << "cpt " << cpt << std::endl;
 }
 
 
@@ -602,7 +602,7 @@ void grad_descent_2(img i1, img i2, double pi, double pj, double al, double *p_r
     double eps = 1000;
     double eps2 = 1000;
     // the algorithm
-    cout << "p le debut " << p[0] << " "<<p[1] <<endl;
+    std::cout << "p le debut " << p[0] << " "<<p[1] <<std::endl;
     int cpt = 0;
     double k = 0.5; // variation rate/2
     for (int i=0; i<10000; i++){
@@ -630,7 +630,7 @@ void grad_descent_2(img i1, img i2, double pi, double pj, double al, double *p_r
                 p_res[0] = p[0] + k;
                 p_res[1] = p[1] + k;
             }
-            cout << "cpt " << cpt << endl;
+            std::cout << "cpt " << cpt << std::endl;
             return;
         }
     }
@@ -650,7 +650,7 @@ void grad_descent_2(img i1, img i2, double pi, double pj, double al, double *p_r
         p_res[0] = p[0] + k;
         p_res[1] = p[1] + k;
     }
-    cout << "cpt " << cpt << endl;
+    std::cout << "cpt " << cpt << std::endl;
 }
 
 void draw_convergence_grad(img i1, img i2, double al){
@@ -668,7 +668,7 @@ void draw_convergence_grad(img i1, img i2, double al){
     std::vector<double> *list_eps = new std::vector<double>;
     double p_res[2];
     grad_descent(i1, i2, p[0], p[1], al, list_eps, p_res);
-    cout << "final result grad descent : pi " << p_res[0] << ", pj  " << p_res[1] << endl;
+    std::cout << "final result grad descent : pi " << p_res[0] << ", pj  " << p_res[1] << std::endl;
     FILE * gnuplotPipe = popen ("gnuplot -persistent", "w");
     fprintf(gnuplotPipe, "plot '-' with lines\n");
     // send data to gnuplot
@@ -698,7 +698,7 @@ void result_conv_grad(img i1, img i2, double al){
         double p_res[2];
         grad_descent_2(i1, i2, pi, pj, al, p_res);
         list_p->push_back(p_res);
-        cout << "final result grad descent : pi " << p_res[0] << ", pj  " << p_res[1] << endl;
+        std::cout << "final result grad descent : pi " << p_res[0] << ", pj  " << p_res[1] << std::endl;
     }
     delete list_p;
 }

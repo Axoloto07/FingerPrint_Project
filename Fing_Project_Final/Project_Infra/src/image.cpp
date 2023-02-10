@@ -5,7 +5,7 @@
 //CONSTRUCTORS
 //#######################################################################
 
-img::img(string filename){
+img::img(std::string filename){
 //create a image from a filename
     matrix = imread(filename, IMREAD_GRAYSCALE);
     
@@ -28,10 +28,10 @@ img::img(){
 //SAVE THE IMAGE
 //#######################################################################
 
-void img::save(string filename){
+void img::save(std::string filename){
 //save an image in a file
-    cout<<"The file "<<filename<<" has been created"<<endl;
-    cout<<endl;
+    std::cout<<"The file "<<filename<<" has been created"<<std::endl;
+    std::cout<<std::endl;
     imwrite(filename, matrix);
 
 }
@@ -122,10 +122,10 @@ img img::convert_to_0_255(){
 //MAXIMUM / MINIMUM
 //#######################################################################
 
-vector<int> img::max(){
+std::vector<int> img::max(){
 //compute the maximum of the pixel intensity in an image
 //return its coordinates and the intensity of this pixel in a vector
-    vector<int> max {0, 0, matrix.at<uchar>(0, 0)};
+    std::vector<int> max {0, 0, matrix.at<uchar>(0, 0)};
 
     for (int i = 0; i<matrix.rows; i++){
         for (int j = 0; j<matrix.cols; j++){
@@ -144,10 +144,10 @@ vector<int> img::max(){
 }
 
 
-vector<int> img::min(){
+std::vector<int> img::min(){
 //compute the minimum of the pixel intensity in an image
 //return its coordinates and the intensity of this pixel in a vector
-    vector<int> min {0, 0, matrix.at<uchar>(0, 0)};
+    std::vector<int> min {0, 0, matrix.at<uchar>(0, 0)};
 
     for (int i = 0; i<matrix.rows; i++){
         for (int j = 0; j<matrix.cols; j++){
@@ -238,12 +238,12 @@ img img::sym_diag_inv(){
 //CENTER OF THE FINGER
 //#######################################################################
 
-vector<int> img::coord_center(){
+std::vector<int> img::coord_center(){
     //find the center of the finger and return its coordinates
 
     int i_center=0;
     int j_center=0;
-    vector<int> v;
+    std::vector<int> v;
     //we go throw the matrix from top to bottom
     //we don't begin at the very first lines or rows to avoid 'noise' at the boundaries of the image
     for (int i = 5; i<matrix.rows-5; i++){
@@ -357,7 +357,7 @@ img img::difference(img image){
 //OVERLOADED PRINT
 //#######################################################################
 
-ostream &operator<<(ostream &o, const img &image){
-    o<<image.matrix<<endl;
+std::ostream &operator<<(std::ostream &o, const img &image){
+    o<<image.matrix<<std::endl;
     return o;
 }

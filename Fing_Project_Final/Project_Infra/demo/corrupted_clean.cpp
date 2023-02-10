@@ -17,16 +17,16 @@ int main(){
 
     //choose the option to run
     bool corr;
-    cout<<"Do you want the corrupted version? (enter 1 for yes, 0 for no)"<<endl;
-    cin>>corr;
+    std::cout<<"Do you want the corrupted version? (enter 1 for yes, 0 for no)"<<std::endl;
+    std::cin>>corr;
     bool check = 0;
     if (corr){
-        cout<<"Do you want the checking of our results? (enter 1 for yes, 0 for no)"<<endl;
-        cin>>check;
+        std::cout<<"Do you want the checking of our results? (enter 1 for yes, 0 for no)"<<std::endl;
+        std::cin>>check;
     }
     bool clean;
-    cout<<"Do you want the clean version? (enter 1 for yes, 0 for no)"<<endl;
-    cin>>clean;
+    std::cout<<"Do you want the clean version? (enter 1 for yes, 0 for no)"<<std::endl;
+    std::cin>>clean;
 
 
 //#######################################################################
@@ -48,7 +48,7 @@ int main(){
 //CREATION OF THE MATRIX OF CONVOLUTION
 //#######################################################################
 
-    vector<Mat> v = list_circulante(kernel, input_dense);
+    std::vector<Mat> v = list_circulante(kernel, input_dense);
     Mat doubly_block = circulate_matrix(v, input_dense);
 
 

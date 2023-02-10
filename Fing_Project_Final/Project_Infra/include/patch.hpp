@@ -23,7 +23,7 @@ class mask : public img{
 
         int size_vect();
 
-        pair<int, int> get_val(int pos);
+        std::pair<int, int> get_val(int pos);
 
 
 

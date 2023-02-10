@@ -4,13 +4,13 @@
 #include "../include/check_convergence.hpp"
 
 
-using namespace std;
+//using namespace std;
 
 
 //fonction to test the convolution process
 int main(){
 
-    cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<endl;
+    std::cout<<"PLEASE CHOOSE THE OPTION YOU WANT TO RUN : enter 'if(1)' instead of 'if(0)'"<<std::endl;
 
     
 //#######################################################################
@@ -29,7 +29,7 @@ int main(){
         float a = (float) (1*m1.rows)/8;
         float b = (float) (8*m1.cols)/32;
 
-        vector<int> center = fingerprint.coord_center();
+        std::vector<int> center = fingerprint.coord_center();
 
 
 //#######################################################################
@@ -55,9 +55,9 @@ int main(){
 
         //check convergence
         float threshold = 0.01;
-        cout<<"Identity kernel :"<<endl;
+        std::cout<<"Identity kernel :"<<std::endl;
         convergence("../Project_Infra/images/clean_finger.png","verif_results/conv_id.png",threshold);
-        cout<<"Verifications :"<<endl;
+        std::cout<<"Verifications :"<<std::endl;
         convergence("../Project_Infra/images/clean_finger.png","verif_results/conv_id_fft.png",threshold);
         convergence("../Project_Infra/images/clean_finger.png","verif_results/conv_id_filter.png",threshold);
     }
@@ -84,9 +84,9 @@ int main(){
 
         //check convergence
         float threshold = 0.05;
-        cout<<"Uniform blur kernel :"<<endl;
+        std::cout<<"Uniform blur kernel :"<<std::endl;
         convergence("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur.png",threshold);
-        cout<<"Verifications : "<<endl;
+        std::cout<<"Verifications : "<<std::endl;
         convergence("verif_results/conv_blur.png","verif_results/conv_blur_fft.png",threshold);
         convergence("verif_results/conv_blur_filter.png","verif_results/conv_blur.png",threshold);
         convergence("verif_results/conv_blur_filter.png","verif_results/conv_blur_fft.png",threshold);
@@ -120,9 +120,9 @@ int main(){
 
         //check convergence
         float threshold = 0.05;
-        cout<<"Pull kernel :"<<endl;
+        std::cout<<"Pull kernel :"<<std::endl;
         convergence("../Project_Infra/images/blurred_finger.png","verif_results/conv_pull.png",threshold);
-        cout<<"Verifications :"<<endl;
+        std::cout<<"Verifications :"<<std::endl;
         convergence("verif_results/conv_pull_filter.png","verif_results/conv_pull_fft.png",threshold);
         convergence("verif_results/conv_pull_filter.png","verif_results/conv_pull.png",threshold);
         convergence("verif_results/conv_pull.png","verif_results/conv_pull_fft.png",threshold);
@@ -154,9 +154,9 @@ int main(){
 
         //check convergence
         float threshold = 0.05;
-        cout<<"Gaussian kernel :"<<endl;
+        std::cout<<"Gaussian kernel :"<<std::endl;
         convergence("../Project_Infra/images/blurred_finger.png","verif_results/conv_pull.png",threshold);
-        cout<<"Verifications :"<<endl;
+        std::cout<<"Verifications :"<<std::endl;
         convergence("verif_results/conv_gauss.png","verif_results/conv_gauss_filter.png",threshold);
         convergence("verif_results/conv_gauss_fft.png","verif_results/conv_gauss_filter.png",threshold);
         convergence("verif_results/conv_gauss_fft.png","verif_results/conv_gauss.png",threshold);
@@ -185,7 +185,7 @@ int main(){
 
         //check convergence
         float threshold = 0.05;
-        cout<<"Blurr nunif kernels :"<<endl;
+        std::cout<<"Blurr nunif kernels :"<<std::endl;
         convergence("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif.png",threshold);
         mean_squared_error("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif.png");
         histogram("../Project_Infra/images/blurred_finger.png", "verif_results/conv_blur_nunif.png", "verif_results");
@@ -216,7 +216,7 @@ int main(){
         
         //check convergence
         float threshold = 0.05;
-        cout<<"Blurr nunif normalized kernels :"<<endl;
+        std::cout<<"Blurr nunif normalized kernels :"<<std::endl;
         convergence("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif_norm.png",threshold);
         mean_squared_error("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif_norm.png");
         histogram("../Project_Infra/images/blurred_finger.png","verif_results/conv_blur_nunif_norm.png", "verif_results");

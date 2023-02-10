@@ -5,11 +5,11 @@
 //BINARIZATION OF IMAGES
 //#######################################################################
 
-vector<float> proba_distr(Mat &input){
+std::vector<float> proba_distr(Mat &input){
     //compute the occurence of each pixel intensity (from 0 to 255)
     int size = input.rows*input.cols;
     //for each level of gray store the nb of pixels with this intensity
-    vector<float> frequency(256);
+    std::vector<float> frequency(256);
     for (int i=0; i<input.rows; i++){
         for (int j=0; j<input.cols; j++){
             frequency[input.at<float>(i,j)]+=(1.0/size);
@@ -18,7 +18,7 @@ vector<float> proba_distr(Mat &input){
     return frequency;
 }
 
-float between_class_variance(int level, vector<float> &frequency){
+float between_class_variance(int level, std::vector<float> &frequency){
     //the pixels will be separated in two classes given an intensity threshold 'level'
     //this function computes the between-class variance
     float omega_0 = 0;
@@ -45,7 +45,7 @@ float between_class_variance(int level, vector<float> &frequency){
     return sigma_b_square;
 }
 
-float find_threshold(vector<float> &frequency){
+float find_threshold(std::vector<float> &frequency){
     //compute the optimal intensity threshold used to separate pixels in 2 classes
     float threshold = 0;
    
@@ -154,7 +154,7 @@ float dilatation_coeff_grayscale(Mat &elt_struct, Mat &input){
     return min;
 }
 
-Mat erosion_dilatation(Mat &elt_struct, Mat &bin, string filter_type){
+Mat erosion_dilatation(Mat &elt_struct, Mat &bin, std::string filter_type){
     //compute the eroded/dilated version of a binary or grayscale input image given a structuring element
 
     //pad the input image, so that the filter works also for pixels at the borders
@@ -201,7 +201,7 @@ Mat erosion_dilatation(Mat &elt_struct, Mat &bin, string filter_type){
 //#######################################################################
 
 
-Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float radius, vector<int> &center, Mat &bin, string bin_gray){
+Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float radius, std::vector<int> &center, Mat &bin, std::string bin_gray){
     //compute the dilated version of a grayscale input image
     //the filtering is not uniform (the kernel changes depending on the position of the pixel)
 
@@ -253,7 +253,7 @@ Mat dilation_nunif(int elt_struct_i, int elt_struct_j, float a, float b, float r
 }
 
 
-Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center, float radius){
+Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, std::vector<int> center, float radius){
     //compute the eroded version of grayscale input image 
     //the filtering is not uniform (the kernel changes depending on the position of the pixel)
 
@@ -315,7 +315,7 @@ Mat erosion_nunif(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b
     return result;
 } 
 
-Mat erosion_nunif_bin(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, vector<int> center){
+Mat erosion_nunif_bin(int elt_struct_i, int elt_struct_j, Mat &bin, float a, float b, std::vector<int> center){
     //compute the eroded version of binary input image
     //the filtering is not uniform (the kernel changes depending on the position of the pixel)
     //pad the input image with zeros, so that the filter works also for pixels at the borders
@@ -355,12 +355,12 @@ Mat erosion_nunif_bin(int elt_struct_i, int elt_struct_j, Mat &bin, float a, flo
 //#######################################################################
 
 
-ostream & operator<<(ostream &o, const vector<float> &v){
+std::ostream & operator<<(std::ostream &o, const std::vector<float> &v){
     //overloading of operator <<
     //print out the content of a vector of float
     for (int i = 0; i<v.size(); i++){
-        o<<v[i]<<endl;
+        o<<v[i]<<std::endl;
     }
-    o<<endl;
+    o<<std::endl;
     return o;
 }
