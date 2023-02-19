@@ -48,6 +48,7 @@ float find_min_x(img i1, img i2, float b1, float b2, float min, float pmin){
         std::cout << "min_final = " << min << std::endl;
         std::cout << "pmin_final = " << pmin << std::endl;
     }
+    return min;
 }
 
 float find_min_xy(img i1, img i2, float bi1, float bi2, float bj1, float bj2, float min, float pmini, float pminj){

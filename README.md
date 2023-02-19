@@ -5,8 +5,7 @@ Names : **LEBEURRIER Arthur, PERRIN Axel, TOURON Camille, TOURON Eloïse, MAZLOU
 
 # Before running the code : 
 
-- create a directory "build" at the same level as "Project_Infra" 
-- from the terminal, go in this new directory "build"
+- from the terminal, go in the directory "build" (at the same level as "Project_Infra")
 - in the terminal enter : "cmake ../Project_Infra/"
 
 
