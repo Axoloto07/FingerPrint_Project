@@ -6,6 +6,7 @@ add_executable(moist_finger moist_finger.cpp)
 add_executable(weak_finger weak_finger.cpp)
 add_executable(loss_functions loss_functions.cpp)
 add_executable(diff_images diff_images.cpp)
+add_executable(geom_operations test_geom_op.cpp)
 
 target_link_libraries(restoration
     PRIVATE
@@ -50,6 +51,13 @@ target_link_libraries(loss_functions
     alg
 )
 target_link_libraries(diff_images
+    PRIVATE
+    FingerPrint
+    ${OpenCV_LIBS} m
+    alg
+)
+
+target_link_libraries(geom_operations
     PRIVATE
     FingerPrint
     ${OpenCV_LIBS} m
