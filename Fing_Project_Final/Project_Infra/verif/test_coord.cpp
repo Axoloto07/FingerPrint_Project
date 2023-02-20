@@ -5,15 +5,15 @@
 
 int main(){
 
-    img fingerprint("../../Project_Infra/images/clean_finger_small.png");
+    img fingerprint("../Project_Infra/images/clean_finger_small.png");
 
-    img fingerprint_tx("../../Project_Infra/images/tx_finger.png");
+    img fingerprint_tx("../Project_Infra/images/tx_finger.png");
 
-    img fingerprint_big("../../Project_Infra/images/clean_finger.png");
+    img fingerprint_big("../Project_Infra/images/clean_finger.png");
 
-    img fingerprint_txy("../../Project_Infra/images/txy_small_finger_homemade.png");
+    img fingerprint_txy("../Project_Infra/images/txy_small_finger_homemade.png");
 
-    img fingerprint_rtxy("../../Project_Infra/images/rtxy_small_finger_homemade.png");
+    img fingerprint_rtxy("../Project_Infra/images/rtxy_small_finger_homemade.png");
 
     int n = fingerprint.get_rows()/2;
     int m = fingerprint.get_cols()/2;

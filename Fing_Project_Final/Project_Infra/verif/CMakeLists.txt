@@ -8,6 +8,7 @@ add_executable(test_symmetries test_symmetries.cpp)
 add_executable(test_coord test_coord.cpp)
 add_executable(test_find test_find.cpp)
 add_executable(test_grad test_grad.cpp)
+add_executable(test_rotation test_rotation.cpp)
 #target_link_libraries(test_finger gtest libFingerPrint)
 
 
@@ -47,6 +48,12 @@ target_link_libraries(test_squares
     alg
 )
 target_link_libraries(test_symmetries
+    PRIVATE
+    FingerPrint
+    ${OpenCV_LIBS} m
+    alg
+)
+target_link_libraries(test_rotation
     PRIVATE
     FingerPrint
     ${OpenCV_LIBS} m
