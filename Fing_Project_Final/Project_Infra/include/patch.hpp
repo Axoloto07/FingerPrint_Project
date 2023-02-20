@@ -66,7 +66,7 @@ class patch : public img{
          * @param cj The j coordonate in the original image (will be the center of the patch)
          * @param mask<std::vector<int>,int> The dictionnary with the pixel of the mask
          */
-        patch(mask &mask_o, int ci, int cj, int size);
+        // patch(mask &mask_o, int ci, int cj, int size);
 
         /**
          * @brief Calculat the distance between two images using mean square error
@@ -83,6 +83,13 @@ class patch : public img{
          * @return patch A new patches were the multiplication has been performed
          */
         patch mult(patch p);
+
+        /**
+         * @brief Perform the sum of all the coefficient of the patch
+         * 
+         * @return double
+         */
+        double sum();
 
 
 };

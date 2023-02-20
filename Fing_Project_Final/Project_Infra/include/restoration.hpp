@@ -34,9 +34,7 @@ int best_patch(patch p, patch m, std::map<int, patch> dico);
  * @param nb_patch The number of patches to sample for the restoration process
  * @param size The size of the patches to use for the resoration process
  */
-void restor_line(img &image, mask &mask_o, int nb_patch, int size);
+void restor_patch(img &image, mask &mask_o, int nb_patch, int size, std::map<int, patch> dic);
 
-
-// void restor_circle(img &image, img &mask, int nb_patch, int size);
 
 #endif

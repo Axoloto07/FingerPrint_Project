@@ -74,11 +74,7 @@ int best_patch(patch p, patch p_mask, std::map<int, patch> dico){
 }
 
 
-void restor_line(img &image, mask &mask_o, int nb_patch, int size){
-
-    // Creating the comparison dictionary
-    std::map<int, patch> dic = dic_patch(image, mask_o, nb_patch, size);
-    std::cout<<"[Dictionnary successfully created]"<<std::endl;
+void restor_patch(img &image, mask &mask_o, int nb_patch, int size, std::map<int, patch> dic){
 
     // Iterating on the pixel of the mask
     for (int i=0; i<mask_o.size_vect(); i++){
@@ -96,14 +92,3 @@ void restor_line(img &image, mask &mask_o, int nb_patch, int size){
 }
 
 
-
-// void restor_circle(img &image, img &mask, int nb_patch, int size){
-
-//     // Creating the comparison dictionary
-//     map<int, patch> dic = dic_patch(image, mask, nb_patch, size);
-//         cout<<"[Dictionnary successfully created]"<<endl;
-
-//     // Iterating on the pixel of the image in a spiral shape
-    
-
-// }

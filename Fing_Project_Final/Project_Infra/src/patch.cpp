@@ -42,7 +42,17 @@ std::pair<int, int> mask::get_val(int pos){
 
 patch::patch(img image, int size, int ci, int cj){
  // Sample a rectangle from the original image
-    matrix = image.get_matrix()(Rect(cj-size/2, ci-size/2, size, size));
+   //  matrix = image.get_matrix()(Rect(cj-size/2, ci-size/2, size, size));
+   matrix = Mat(size, size, CV_8U);
+   for (int i = 0; i<size; i++){
+      for (int j = 0; j<size; j++){
+
+         matrix.at<uchar>(i, j) = image.get_pix_val(ci-size/2+i, cj-size/2+j);
+
+      }
+
+
+   }
 
 }
 
@@ -58,23 +68,6 @@ patch::patch(int rows, int cols){
     matrix = Mat(rows, cols, CV_8U);
 
 }
-
-// patch::patch(mask &mask_o, int ci, int cj, int size){
-   
-//     matrix = Mat(size, size, CV_8U, Scalar(1));
-//     for (int i = 0; i<size; i++){
-//       for (int j = 0; j<size; j++){
-
-//          if (mask_o.get_pix_val(i, j) == 0){
-
-//             matrix.at<uchar>(i, j) = 0;
-
-//          }
-
-//       }
-//     }
-
-// }
 
 
 
@@ -125,5 +118,25 @@ patch patch::mult(patch p){
     return mult;
 
 }
+
+
+
+double patch::sum(){
+   double sum = 0;
+   //iterating over the whole patch
+   for (int i =0; i<matrix.rows; i++){
+      for(int j =0; j<matrix.cols; j++){
+
+         sum+=(*this).get_pix_val(i, j);
+
+      }
+
+   }
+
+   return sum;
+
+
+}
+
 
 
