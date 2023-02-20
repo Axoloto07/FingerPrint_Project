@@ -14,7 +14,7 @@ Names : **LEBEURRIER Arthur, PERRIN Axel, TOURON Camille, TOURON Eloïse, MAZLOU
 - Go in the directory build.
 - Enter "make" in the terminal (the compilation is long)
 
-Exectuable files : 
+Executable files : 
 - the **final executables** are in the directory **"demo"**
 they create final results such as "weak_finger".
 - go in the directory "build" and enter "./demo/weak_finger" to execute the executable "weak_finger".
