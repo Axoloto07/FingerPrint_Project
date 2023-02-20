@@ -78,7 +78,7 @@ float find_min_xytheta(img i1, img i2, float bi1 = -200, float bi2 = 200, float 
  * @param theta  rotation angle
  * @return float 
  */
-float loss_function_opt(img i1, img i2, float tx=0, float ty=0, float theta=0);
+double loss_function_opt(img i1, img i2, float tx=0, float ty=0, float theta=0);
 
 
 /**
@@ -90,7 +90,7 @@ float loss_function_opt(img i1, img i2, float tx=0, float ty=0, float theta=0);
  * @param ty  translation along y
  * @return float 
  */
-float loss_function_diff(img i1, img i2, float tx=0, float ty=0);
+float loss_function_diff(img i1, img i2, float tx=0, float ty=0, float theta=0);
 
 /**
  * @brief loss function derivated according to px
@@ -129,14 +129,15 @@ double loss_function_pderivative_y(img i1, img i2, double tx=0, double ty=0, dou
  * 
  * if a = 0 (default), we draw the loss function with respect to the loss_function
  * if a = 1, we draw the loss function with respect to the loss_function_opt
+ * if a = 2, we draw the loss function with respect to the loss_function_diff
  * 
  * @param img
  * @param img
  * @param b1 begin of the interval
  * @param b2 end of the interval
- * @param a if a = 0 (default), we draw the loss function with respect to the loss_function if a = 1, we draw the loss function with respect to the loss_function_opt
+ * @param a = 0 (default), 1 or 2
  */
-void draw_loss_function_x(img i1, img i2, double b1=-100, double b2=100, int a=0);
+void draw_loss_function_x(img i1, img i2, double b1 = -100, double b2 = 100, int nb = 100, int a = 0);
 
 /**
  * @brief draw the loss function with respect to the translation
@@ -147,7 +148,7 @@ void draw_loss_function_x(img i1, img i2, double b1=-100, double b2=100, int a=0
  * @param b1 begin of the interval
  * @param b2 end of the interval
  */
-void draw_loss_function_pderivative_x(img i1, img i2, double b1=-100, double b2=100, double h=1);
+void draw_loss_function_pderivative_x(img i1, img i2, double b1 = -100, double b2 = 100, int nb = 100, double h=1);
 
 /**
  * @brief draw the loss function with respect to the translation
@@ -155,23 +156,28 @@ void draw_loss_function_pderivative_x(img i1, img i2, double b1=-100, double b2=
  * 
  * if a = 0 (default), we draw the loss function with respect to the loss_function
  * if a = 1, we draw the loss function with respect to the loss_function_opt
+ * if a = 2, we draw the loss function with respect to the loss_function_diff
  * 
  * @param image 
- * @param a if a = 0 (default), we draw the loss function with respect to the loss_function if a = 1, we draw the loss function with respect to the loss_function_opt
+ * @param a = 0 (default) 1 or 2
  * @return void
  */
-void draw_loss_function_xy(img i1, img i2, int a = 0);
+void draw_loss_function_xy(img i1, img i2, double bi1 = -20, double bi2 = 20, double bj1 = -20, double bj2 = 20, int nb = 100, int a = 0);
 
 
 /**
  * @brief draw the loss function with respect to the translation
  * and the rotation
  * 
+ * if a = 0 (default), we draw the loss function with respect to the loss_function
+ * if a = 1, we draw the loss function with respect to the loss_function_opt
+ * if a = 2, we draw the loss function with respect to the loss_function_diff
+ * 
  * @param image 
- * @param a if a = 0 (default), we draw the loss function with respect to the loss_function if a = 1, we draw the loss function with respect to the loss_function_opt
+ * @param a = 0 (default) 1 or 2
  * @return void
  */
-void display_loss_function_xytheta(img i1, img i2, int a = 0);
+void display_loss_function_xytheta(img i1, img i2, double bi1 = -20, double bi2 = 20, double bj1 = -20, double bj2 = 20, double bt1 = 0, double bt2 = 2*M_PI,int nb = 100, int a = 0);
 
 /**
  * @brief recursive function to make a non differentiable coordinate descent
@@ -184,7 +190,7 @@ void display_loss_function_xytheta(img i1, img i2, int a = 0);
  * @param p_res the result of the algorithm
  * @param cpt counter that is used to stop the recursion
  */
-void coord_descent(img i1, img i2, float pi, float pj, float al, std::vector<float>* list_al, float* p_res, int cpt = 0);
+float coord_descent(img i1, img i2, float pj, float al, std::vector<float>* list_al, int cpt = 0);
 
 /**
  * @brief recursive function to make a non differentiable coordinate descent
@@ -197,7 +203,7 @@ void coord_descent(img i1, img i2, float pi, float pj, float al, std::vector<flo
  * @param p_res the result of the algorithm
  * @param cpt counter that is used to stop the recursion
  */
-void coord_descent_2(img i1, img i2, float pi, float pj, float al, float *p_res, int cpt = 0);
+void coord_descent_2(img i1, img i2, float pj, float* p_res, float al, int cpt = 0);
 
 /**
  * @brief draw the parameter alpha in function of cpt
@@ -291,6 +297,15 @@ void draw_convergence_grad(img i1, img i2, double al = 1e-5);
  * @param al 
  */
 void result_conv_grad(img i1, img i2, double al = 1e-5);
+
+/**
+ * @brief compute the gradient of the loss function in 1D for 20 initial values and display the best one
+ * 
+ * @param i1 
+ * @param i2 
+ * @param al 
+ */
+void result_conv_grad_x(img i1, img i2, double al = 1e-5);
 
 
 
